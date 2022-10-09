@@ -40,7 +40,7 @@ export default function BlogSidebar({sidebar,scollFunc,contentType}){
         </div>
         <div className="blog-sidebox blog-sidebox-post">
             <h1>分類</h1>
-            <Link href={`${contentType}/category/樓市走勢`}>樓市走勢🏠</Link>
+            <Link href={`${contentType}/category/樓價`}>樓市走勢🏠</Link>
             <Link href={`${contentType}/category/專題`}>經濟發展📈</Link>
             <Link href={`${contentType}/category/專題`}>專題</Link>
             <Link href={`${contentType}/category/歷史文化`}>歷史文化🏰</Link>
