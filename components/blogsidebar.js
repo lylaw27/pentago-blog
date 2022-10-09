@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function BlogSidebar({sidebar,scollFunc}){
+export default function BlogSidebar({sidebar,scollFunc,contentType}){
     return(
     <div className="blog-sidebar">
         <div className="blog-sidebox">
@@ -40,17 +40,17 @@ export default function BlogSidebar({sidebar,scollFunc}){
         </div>
         <div className="blog-sidebox blog-sidebox-post">
             <h1>分類</h1>
-            <Link href='/category/樓市走勢'>樓市走勢🏠</Link>
-            <Link href='/category/專題'>經濟發展📈</Link>
-            <Link href='/category/專題'>專題</Link>
-            <Link href='/category/歷史文化'>歷史文化🏰</Link>
-            <Link href='/category/就業'>就業</Link>
-            <Link href='/category/就業'>通勤交通🚅</Link>
-            <Link href='/category/就業'>天氣地理🌦</Link>
-            <Link href='/category/教育'>學校教育🧒🏻</Link>
-            <Link href='/category/教育'>地區分析</Link>
-            <Link href='/category/教育'>市場熱話</Link>
-            <Link href='/category/教育'>數據比較</Link>
+            <Link href={`${contentType}/category/樓市走勢`}>樓市走勢🏠</Link>
+            <Link href={`${contentType}/category/專題`}>經濟發展📈</Link>
+            <Link href={`${contentType}/category/專題`}>專題</Link>
+            <Link href={`${contentType}/category/歷史文化`}>歷史文化🏰</Link>
+            <Link href={`${contentType}/category/就業`}>就業</Link>
+            <Link href={`${contentType}/category/就業`}>通勤交通🚅</Link>
+            <Link href={`${contentType}/category/就業`}>天氣地理🌦</Link>
+            <Link href={`${contentType}/category/教育`}>學校教育🧒🏻</Link>
+            <Link href={`${contentType}/category/教育`}>地區分析</Link>
+            <Link href={`${contentType}/category/教育`}>市場熱話</Link>
+            <Link href={`${contentType}/category/教育`}>數據比較</Link>
         </div>
     </div>
   )

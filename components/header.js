@@ -24,7 +24,7 @@ export default function Header(){
             <Link href="/patreon" >
                 <span className='pointer'>Patreon文章預覽</span>
             </Link>
-            <Link href="/" >
+            <Link href="/英國懶人包" >
                 <span className='pointer'>英國懶人包</span>
             </Link>
             <Link href="/blog" >

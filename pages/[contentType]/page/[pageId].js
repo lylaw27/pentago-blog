@@ -7,15 +7,14 @@ export default function Layout(props){
 
 export async function getStaticPaths() {
   const blogs = await Dbconnect('blogs')
-  const contentType = ['Youtube影片','Patreon文章預覽','英國懶人包','英國物業小知識']
+  const contentType = await blogs.distinct('contentType')
   let paths = [];
     for(let i=0;i<contentType.length;i++){
       const pageCount = await blogs.countDocuments({contentType: contentType[i]})
       const maxPage = Math.ceil(pageCount/8)
-      const pageArray = Array.from({length: maxPage}, (_, i) => i+1)
-      paths = paths.concat(pageArray.map(pageId=>({params: {contentType: contentType[i], pageId: pageId.toString()}})))
+      let pathArray = (Array.from({length: maxPage},(_,j)=> ({params:{contentType: contentType[i], pageId: (j+1).toString()}})))
+      paths = paths.concat(pathArray)
     }
-  console.log(paths)
   return {paths,fallback: false}
 }
 

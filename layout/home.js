@@ -32,7 +32,7 @@ export default function Home({blogs, sidebar, pagination}){
       <section className="blog-section">
         <div className="blog-body">
           <BlogList blogs={blogs}/>
-          <BlogSidebar scollFunc={scrollToSub} sidebar={sidebar}/>
+          <BlogSidebar scollFunc={scrollToSub} sidebar={sidebar} contentType={pagination.contentType}/>
         </div>
           <BlogPagination pagination={pagination}/>
       </section>

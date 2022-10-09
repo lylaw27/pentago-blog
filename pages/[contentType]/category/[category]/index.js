@@ -8,15 +8,23 @@ export default function Layout(props){
 export async function getStaticPaths() {
   const blogs = await Dbconnect('blogs')
   const category = await blogs.distinct('category')
-  const paths = category.map(category=>({params: {category: category}}))
+  const contentType = await blogs.distinct('contentType')
+  let paths = [];
+  for(let i=0;i<contentType.length;i++){
+    for(let j=0;j<category.length;j++){
+      let pathArray = {params:{contentType: contentType[i], category: category[j]}}
+      paths = paths.concat(pathArray)
+    }
+  }
   return {paths,fallback: false}
 }
 
 export async function getStaticProps(context){
     const blogs = await Dbconnect('blogs')
     let category = context.params.category;
+    let type = context.params.contentType;
     let recordPerPage = 8;
-    const blogList = await blogs.find({category: category})
+    const blogList = await blogs.find({category: category,contentType: type})
                                 .sort({timestamp: -1})
                                 .limit(recordPerPage)
                                 .toArray();
@@ -24,7 +32,7 @@ export async function getStaticProps(context){
                                 .sort({timestamp: -1})
                                 .limit(recordPerPage)
                                 .toArray();
-    const blogCount = await blogs.countDocuments({category: category})
+    const blogCount = await blogs.countDocuments({category: category,contentType: type})
         // if(!result){res.send("notfound")}
     return{
         props: {
@@ -40,7 +48,10 @@ export async function getStaticProps(context){
                       _id: data._id.toString(),
                       title: data.title,
                   })),
-          pagination: blogCount.toString(),
+          pagination:{
+            count: blogCount.toString(),
+            contentType: type
+          }
         },
         revalidate: 30
       }}
