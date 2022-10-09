@@ -1,0 +1,99 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.blog-video{
+    margin: 30px 0;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+.blog-share{
+    margin: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    top: 30px;
+    position: sticky;
+    align-self: flex-start;
+}
+.blog-share i{
+    margin-bottom: 4px ;
+    color: white;
+    font-size: 20px;
+    width: 40px;
+    text-align: center;
+    padding: 10px 0;
+    }
+.blog-share .fa-share-alt{
+    color: black;
+}
+.blog-share .fa-whatsapp{
+    background-color: #25D366;
+}
+.blog-share .fa-facebook-f{
+    background-color: #4267B2;
+}
+.blog-share .fa-envelope{
+    background-color: #BE2C2D;
+}
+.suggestion-title{
+    margin: 70px 0 20px 0;
+    font-size: 25px;
+    display: flex;
+}
+.suggestion{
+    display: flex;
+    margin-bottom: 100px;
+}
+.suggest-list{
+    width: 100%;
+}
+.suggest-list-0{
+    margin-right: 10px;
+}
+.suggest-list-1{
+    margin-left: 10px;
+}
+.suggest-image{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.suggest-list h3{
+    margin: 10px 0 50px 0;
+}
+.mobile-share{
+    display: none;
+}
+@media only screen and (max-width: 1025px) {
+    .blog-share{
+        display: none;
+    }
+    .suggestion{
+        flex-direction: column;
+        align-items: center;
+    }
+    .suggest-list{
+        margin: 0;
+    }
+    .mobile-share{
+        display: block;
+        z-index: 10;
+        position: sticky;
+        bottom: 0;
+        background-color: #BE2C2D;
+        color: white;
+        padding: 5px 30px;
+    }
+    .mobile-share i{
+        color: white;
+        padding: 0 13px;
+        font-size: 20px;
+    }
+    .share-wrapper{
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 750px;
+    }
+}

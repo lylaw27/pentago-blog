@@ -1,0 +1,185 @@
+p {
+  font-size: 1.2vw;
+}
+
+h1 {
+  font-size: 4vw;
+}
+
+.aboutus .aboutImg {
+  position: relative;
+  vertical-align: text-bottom;
+}
+
+.top {
+  height: 45vw;
+  background-image: url("../images/about1.jpg");
+  background-size: cover;
+  text-align: justify;
+}
+
+.top div {
+  position: relative;
+  top: 30%;
+  margin-left: 10vw;
+  width: 30%;
+}
+.top div p {
+  margin-top: 10px;
+  font-size: 1.5vw;
+}
+
+.service1 {
+  height: 40vw;
+  display: flex;
+}
+.service1 div {
+  text-align: justify;
+  margin: 10vw 0 0 15vw;
+  padding-right: 50px;
+  width: 40%;
+}
+
+.service2 {
+  height: 40vw;
+  display: flex;
+  background-color: #383838;
+  justify-content: space-between;
+  color: white;
+}
+.service2 .content {
+  text-align: justify;
+  margin: 5vw 0 0 15vw;
+  padding-right: 50px;
+}
+.service2 .content div {
+  display: flex;
+  align-items: center;
+}
+.service2 .content div i {
+  font-size: 3vw;
+  width: 7vw;
+  padding: 2vw 0;
+}
+.service3 {
+  height: 40vw;
+  display: flex;
+}
+.service3 .content {
+  text-align: justify;
+  margin: 5vw 0 0 15vw;
+  padding-right: 50px;
+}
+.service3 .content div {
+  display: flex;
+  align-items: center;
+}
+.service3 .content div i {
+  font-size: 3vw;
+  width: 7vw;
+  padding: 2vw 0;
+}
+@media only screen and (max-width: 500px) {
+  .hide{
+    display: none;
+  }
+  #top{
+    background-image: url("../images/about1m.jpg");
+    height: 150vw;
+  }
+  #top div{
+    top: 15%;
+    width: 80%;
+    text-align: left;
+  }
+  #top div h1{
+    font-size: 35px;
+  }
+  #top div p{
+    font-size: 20px;
+  }
+  .service1{
+    height: 140vw;
+    background-image: url("../images/about2m.jpg");
+    background-size: 100% auto;
+    background-position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .service1 img{
+    display: none;
+  }
+  .service1 div{
+    position: relative;
+    margin: 0;
+    top: 10%;
+    left: 10%;
+    width: 70%;
+    height: 300px;
+    padding: 0;
+  }
+  .service1 div h1{
+    font-size: 35px;
+  }
+  .service1 div p{
+    font-size: 15px;
+    text-align: left;
+  }
+  .service2{
+    justify-content: center;
+    height: 550px;
+  }
+  .service2 .content{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  .service2 .content div{
+    margin: 50px 30px;
+    padding: 0 20px;
+  }
+  .service2 .content div i{
+    font-size: 40px;
+    margin-right: 35px;
+  }
+  .service2 img{
+    display: none;
+  }
+  .service2 .content p{
+    font-size: 20px;
+  }
+  .service2 .content h1{
+    font-size: 35px;
+    margin: 40px;
+    text-align: center;
+  }
+  .service3{
+    justify-content: center;
+    height: 580px;
+  }
+  .service3 .content{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  .service3 .content div{
+    margin: 50px 30px;
+    padding: 0 20px;
+  }
+  .service3 .content div i{
+    font-size: 40px;
+    margin-right: 35px;
+  }
+  .service3 img{
+    display: none;
+  }
+  .service3 .content p{
+    font-size: 20px;
+  }
+  .service3 .content h1{
+    font-size: 35px;
+    margin: 40px;
+    text-align: center;
+  }
+}
+/*# sourceMappingURL=about.css.map */

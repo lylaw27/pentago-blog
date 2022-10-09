@@ -1,0 +1,40 @@
+.pageBar{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+}
+.pageNumber{
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    background-color: white;
+    color: black;
+    width: 50px;
+    height: 50px;
+}
+.pageCurrent{
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    background-color: #BE2C2D;
+    color: white;
+    width: 50px;
+    height: 50px;
+}
+.pageDisabled{
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    background-color: white;
+    color: black;
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+.pageNumber:hover{
+    background-color: #BE2C2D;
+    color: white;
+    cursor: pointer;
+}

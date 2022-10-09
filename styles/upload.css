@@ -1,0 +1,73 @@
+.uploadpage img{
+    display: block;
+    margin: auto;
+}
+.uploadpage h2{
+    text-align: center;
+}
+.uploadpage form{
+    width: 75%;
+    margin: auto;
+}
+.uploadpage label{
+    display: block;
+    margin: 30px 0 5px 0;
+    color: #4c4c4c;
+}
+.uploadpage input{
+    height: 40px;
+    width: 100%;
+    font-size: 15px;
+    padding: 0 12px;
+}
+.uploadpage .input-border{
+    box-sizing: border-box;
+    border: 1.5px solid #b8b8b8;
+    border-radius: 8px;
+}
+.uploadpage select{
+    height: 40px;
+    width: 100%;
+    padding: 0 12px;
+}
+.uploadpage li{
+    list-style: none;
+    margin: 10px 0;
+}
+.uploadpage .textarea{
+    min-height: 400px;
+    background-color: white;
+    width: 100%; 
+    margin: 10px 0;
+}
+.uploadpage .submit-wrapper{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+.uploadpage .submit-button{
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 50px;
+}
+.uploadpage .button-red{
+    background-color: #BE2C2D;
+    color: white;
+}
+.uploadpage .button-white{
+    background-color: white;
+}
+.uploadpage .button-white:hover{
+    background-color: #BE2C2D;
+    color: white;
+    border: 1px solid #BE2C2D;
+}
+.uploadpage .button-red:hover{
+    background-color: #d85657;
+
+}
