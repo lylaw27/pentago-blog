@@ -1,4 +1,4 @@
-import Home from '../../../../layout/home'
+import Home from '../../../../../layout/home'
 import Dbconnect from '../../../../../components/db';
 
 export default function Layout(props){
