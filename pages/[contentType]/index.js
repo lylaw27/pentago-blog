@@ -6,7 +6,8 @@ export default function Layout(props){
 }
 
 export async function getStaticPaths() {
-  const contentType = ['Youtube影片','Patreon文章預覽','英國懶人包','英國物業小知識']
+  const blogs = await Dbconnect('blogs')
+  const contentType = await blogs.distinct('contentType')
   const paths = contentType.map(type=>({params: {contentType: type}}))
   return {paths,fallback: false}
 }
