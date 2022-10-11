@@ -9,7 +9,6 @@ export default function BlogContent({sidebar, suggestion}){
     const [blogContent,setBlogContent] = useBlogContent
     const [blogImage,setBlogImage] = useBlogImage
     const [article,setArticle] = useArticle
-    console.log(blogContent)
     return <BlogLayout blogContent={blogContent} blogImage={blogImage} article={article} suggestion={suggestion} sidebar={sidebar}></BlogLayout>
 }
 

@@ -88,7 +88,6 @@ export default function CreateBlog(){
         })
             const result = await res.data;
             alert('Upload succeed!');
-            console.log(result);
             setSubmitDisabled(false);
         }
         }
@@ -109,7 +108,6 @@ export default function CreateBlog(){
             })
                 const result = await res.data;
                 alert('Saved as Draft!');
-                console.log(result);
                 setSubmitDisabled(false);
             }
             if(loading){

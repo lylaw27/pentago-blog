@@ -32,7 +32,6 @@ export default function EditBlog({blogEdit}){
         let name = target.name;
         let value = target.value;
         setBlogContent({...blogContent,[name]: value});
-        console.log(article)
     }
     const ImageSelectionHandler = (e) => {
         const files = e.target.files
@@ -80,7 +79,6 @@ export default function EditBlog({blogEdit}){
         })
             const result = await res.data;
             alert('Upload succeed!');
-            console.log(result);
             setSubmitDisabled(false);
         }
         }
@@ -101,7 +99,6 @@ export default function EditBlog({blogEdit}){
             })
                 const result = await res.data;
                 alert('Saved as Draft!');
-                console.log(result);
                 setSubmitDisabled(false);
             }
             if(loading){
