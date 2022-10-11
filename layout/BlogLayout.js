@@ -13,7 +13,6 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
 });
 
-
 export default function BlogLayout(props){
     const sidebar = props.sidebar;
     const blogContent= props.blogContent;

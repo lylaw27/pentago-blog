@@ -8,13 +8,12 @@ export default function Layout(props){
 export async function getStaticPaths() {
     const blogs = await Dbconnect('blogs')
     const category = await blogs.distinct('category')
-    let categoryArray = [];
+    let paths = [];
     for(let j=0;j<category.length;j++){
         let maxPage = await blogs.countDocuments({category: category[j]})
-        let categoryAdd = (Array.from({length: maxPage},(_,i)=> ({pageId: (i+1).toString(), category: category[j]})))
-        categoryArray = categoryArray.concat(categoryAdd);
+        let categoryAdd = Array.from({length: maxPage},(_,i)=> ({params: {pageId: (i+1).toString(), category: category[j]}}))
+        paths = paths.concat(categoryAdd);
     }
-    const paths = categoryArray.map(categoryArray=>({params: categoryArray}))
     return {paths,fallback: false}
 }
 
@@ -48,7 +47,10 @@ export async function getStaticProps(context){
                       _id: data._id.toString(),
                       title: data.title,
                   })),
-          pagination: blogCount.toString(),
+          pagination: {
+            count: blogCount.toString(),
+            contentType: '英國懶人包'
+        },
         },
         revalidate: 30
       }}

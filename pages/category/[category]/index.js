@@ -40,7 +40,10 @@ export async function getStaticProps(context){
                       _id: data._id.toString(),
                       title: data.title,
                   })),
-          pagination: blogCount.toString(),
+          pagination: {
+            count: blogCount.toString(),
+            contentType: '英國懶人包'
+          }
         },
         revalidate: 30
       }}

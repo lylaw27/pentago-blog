@@ -30,7 +30,7 @@ export async function getStaticProps(){
                   })),
           pagination: {
             count: blogCount.toString(),
-            contentType: ''
+            contentType: '英國懶人包'
           }
         },
         revalidate: 30
