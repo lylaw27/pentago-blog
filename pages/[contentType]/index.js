@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   const blogs = await Dbconnect('blogs')
   const contentType = await blogs.distinct('contentType')
   const paths = contentType.map(type=>({params: {contentType: type}}))
-  return {paths,fallback: false}
+  return {paths,fallback: 'blocking'}
 }
 
 export async function getStaticProps(context){
