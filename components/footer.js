@@ -15,7 +15,7 @@ export default function Footer(){
           <Link href="https://api.whatsapp.com/send?phone=85251133670"><i className="fab fa-whatsapp"></i></Link>
           <Link href="mailto:cs@pentagoproperty.com"><i className="far fa-envelope"></i></Link>
         </div>
-        <p><i className="fas fa-map-marker-alt"></i>14/F, One Hysan Avenue, Causeway Bay, Hong Kong</p>
+        <p><i className="fas fa-map-marker-alt"></i>20/F, Leighton Centre, 77 Leighton Road, Causeway Bay, HK</p>
         <p className="copyright">Copyright © 2020 Pentago Property Limited. All rights reserved.</p>
     </section>
   );
