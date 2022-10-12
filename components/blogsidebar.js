@@ -24,7 +24,7 @@ export default function BlogSidebar({sidebar,scollFunc,contentType}){
         <div className="blog-sidebox blog-sidebox-post">
             <h1>最新帖子</h1>
             {sidebar.map((recentBlog,i)=>
-                <Link key={i} href={`/blog/${recentBlog._id}`}>
+                <Link key={i} href={`/content/${recentBlog._id}`}>
                     {recentBlog.title}
                 </Link>
             )}

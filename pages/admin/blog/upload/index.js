@@ -129,6 +129,7 @@ export default function CreateBlog(){
                         <label htmlFor="contentType">Content Type</label>
                         <select className="input-border" name="contentType" onChange={ChangeHandler} value={blogContent.contentType}>
                             <option value="英國懶人包">英國懶人包</option>
+                            <option value="Youtube影片">民間博客</option>
                             <option value="Youtube影片">Youtube影片</option>
                             <option value="英國物業小知識">英國物業小知識</option>
                             <option value="Patreon文章預覽">Patreon文章預覽</option>

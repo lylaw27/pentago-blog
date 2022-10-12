@@ -12,6 +12,10 @@ export async function getStaticProps(){
                               .sort({timestamp: -1})
                               .limit(recordPerPage)
                               .toArray();
+    const recentBlog = await blogs.find()
+                                  .sort({timestamp: -1})
+                                  .limit(recordPerPage)
+                                  .toArray();
     const blogCount = await blogs.countDocuments()
     // if(!result){res.send("notfound")}
     return{
@@ -24,7 +28,7 @@ export async function getStaticProps(){
                     category: data.category,
                     uploadDate: data.uploadDate,
                   })),
-          sidebar: blogList.map(data=>({
+          sidebar: recentBlog.map(data=>({
                     _id:data._id.toString(),
                     title: data.title
                   })),
