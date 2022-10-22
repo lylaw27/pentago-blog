@@ -25,8 +25,7 @@ export default function BlogLayout(props){
     return (
         <div>
             <Head>
-                <title>{`PentaGo - ${blogContent.title}`}</title>
-                <meta name="description" content={ blogContent.article}/>
+                <title>{`${blogContent.title}`}</title>
                 <meta name="publisher" content="PentaGo" />
                 <meta property="og:url" content={currentURL}/>
                 <meta property="og:title" content={blogContent.title} /> 
