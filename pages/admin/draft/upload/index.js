@@ -152,6 +152,7 @@ export default function CreateBlog(){
                         <label htmlFor="article">Article</label>
                         <div className="input-border textarea">
                             <SunEditor onChange={(content) => {setArticle(content)}} setContents={article} setOptions={{
+                            height: "auto",
                             resizingBar: false, showPathLabel: false,
                             buttonList: [
                                 ["undo", "redo"],

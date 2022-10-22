@@ -79,7 +79,7 @@ export function Blogdetail({blogContent,suggestion}){
                 <iframe className="blog-video"
                 src={blogContent.videoUrl} style={{display: blogContent.videoUrl ? 'block' : 'none'}}>
                 </iframe>
-                <SunEditor setAllPlugins={false} autoFocus={false} setContents={blogContent.article} disable={true} disableToolbar={true} hideToolbar={true} setOptions={{ resizingBar: false, showPathLabel: false}}/>
+                <SunEditor setAllPlugins={false} autoFocus={false} setContents={blogContent.article} disable={true} disableToolbar={true} hideToolbar={true} setOptions={{height: "auto",resizingBar: false, showPathLabel: false}}/>
             </div>
             <h3 className="suggestion-title">你可能會喜歡</h3>
                 <div className="suggestion">
