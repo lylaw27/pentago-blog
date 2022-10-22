@@ -73,7 +73,7 @@ export function Blogdetail({blogContent,suggestion}){
     <div className="blog-wrapper">
         <div className="blog-list">
             <div className='blog-Content'>
-                <div  style={{display: blogContent.videoUrl ? 'none' : 'block', margin: '30px 0px'}}>
+                <div style={{display: blogContent.videoUrl ? 'none' : 'block', margin: '30px 0px'}}>
                     <ImageGallery items={blogContent.imagefile} showFullscreenButton={false} showPlayButton={false}/>
                 </div>
                 <iframe className="blog-video"
@@ -87,7 +87,7 @@ export function Blogdetail({blogContent,suggestion}){
                         <Link href={`/content/${suggest._id}`} key={i} >
                             <div className={"suggest-list-" + i + " suggest-list pointer"}>
                                <div className="suggest-image" style={{backgroundImage: `url(${suggest.imagefile})`}}/>
-                                <h3>{suggest.title}</h3> 
+                                <h3>{suggest.title}</h3>
                             </div>
                         </Link>
                     )}
