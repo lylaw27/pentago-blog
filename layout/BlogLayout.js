@@ -21,7 +21,7 @@ export default function BlogLayout(props){
     const scrollToSub = () =>{
         scrollRef.current.scrollIntoView({behavior: 'smooth'});
     }
-    const currentURL = `https://researcherp.com/${blogContent._id}`
+    const currentURL = `https://researcherp.com/content/${blogContent._id}`
     return (
         <div>
             <Head>
@@ -32,6 +32,8 @@ export default function BlogLayout(props){
                 <meta property="og:title" content={blogContent.title} /> 
                 <meta property="og:description" content={ blogContent.article}/>
                 <meta property="og:image" content={blogContent.imagefile[0]}/>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <Script src="https://kit.fontawesome.com/dbb3bd5296.js" crossorigin="anonymous"/>

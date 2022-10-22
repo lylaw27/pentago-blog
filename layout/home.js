@@ -18,7 +18,9 @@ export default function Home({blogs, sidebar, pagination}){
     <div>
         <Head>
             <title>PentaGo! - 英國地區最強宏觀數據分析</title>
-            <link rel="icon" href="/favicon.ico" />
+            <meta charset="UTF-8"></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+            <link rel="icon" href="/favicon.ico"/>
         </Head>
       <Script src="https://kit.fontawesome.com/dbb3bd5296.js" crossorigin="anonymous"/>
         <Header/>

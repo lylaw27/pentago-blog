@@ -1,3 +1,5 @@
 .sun-editor{
     border: none !important;
+    overflow: hidden;
+
 }
