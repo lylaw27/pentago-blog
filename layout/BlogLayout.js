@@ -26,10 +26,10 @@ export default function BlogLayout(props){
         <div>
             <Head>
                 <title>{`${blogContent.title}`}</title>
-                <meta name="publisher" content="PentaGo" />
+                <meta name="publisher" content="PentaGo"/>
                 <meta property="og:url" content={currentURL}/>
-                <meta property="og:title" content={blogContent.title} /> 
-                <meta property="og:description" content={ blogContent.article}/>
+                <meta property="og:title" content={blogContent.title}/>
+                <meta property="og:description" content={blogContent.article}/>
                 <meta property="og:image" content={blogContent.imagefile[0]}/>
                 <meta charset="UTF-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>

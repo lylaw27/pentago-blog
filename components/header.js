@@ -44,12 +44,21 @@ export default function Header(){
           </nav>
         </div>
         <div className='nav-dropdown' style={{display: displayState}}>
-          <Link href="/" >
-            民間懶人包
+          <Link href="/英國懶人包" >
+            <div className='nav-item'>民間懶人包</div>
           </Link>
-          <Link href="/blog" >
-            民間博客
-          </Link> 
+          <Link href="/民間博客" >
+            <div className='nav-item'>民間博客</div>
+          </Link>
+          <Link href="/Patreon文章預覽" >
+            <div className='nav-item'>Patreon文章預覽</div>
+          </Link>
+          <Link href="/英國物業小知識" >
+            <div className='nav-item'>英國物業小知識</div>
+          </Link>
+          <Link href="/Youtube影片" >
+            <div className='nav-item'>Youtube影片</div>
+          </Link>
         </div>
     </header>
   );
