@@ -131,6 +131,10 @@ i:hover{
     padding: 20px;
     text-align: center;
   }
+  .nav-item i{
+    padding: 20px;
+    font-size: 20px;
+  }
   header{
     height: 80px;
   }
