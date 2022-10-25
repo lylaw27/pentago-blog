@@ -25,7 +25,6 @@ header {
 }
 .header-box {
   width: 80%;
-  /* max-width: 1050px; */
   align-items: center;
   height: 100%;
   margin: auto;
@@ -44,6 +43,9 @@ nav span{
   display: none;
 }
 .nav-dropdown{
+  display: none;
+}
+.nav-item{
   display: none;
 }
 a {
