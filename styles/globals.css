@@ -126,6 +126,7 @@ i:hover{
     background-color: #BE2C2D;
   }
   .nav-item{
+    display: block;
     color: white;
     padding: 20px;
     text-align: center;
