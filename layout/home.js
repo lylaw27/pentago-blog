@@ -17,7 +17,7 @@ export default function Home({blogs, sidebar, pagination}){
     return(
     <div>
         <Head>
-            <title>英國民間分析員阿P- 最強英國地區全面分析</title>
+            <title>英國民間分析員阿P - 最強英國地區全面分析</title>
             <meta name="description" content="由國家宏觀經濟、地區樓價及學校數據以至各類主題分析。無論買樓投資或海外升學，下決定前參考數據非常重要"/>
             <meta charset="UTF-8"></meta>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
@@ -38,8 +38,8 @@ export default function Home({blogs, sidebar, pagination}){
       <div className="overlap">
       <div className="background">
         <div className="title">
-            <h2>Your UK Property Navigator</h2>
-            <h3 className="chineseheader">英 國 物 業 領 航</h3>
+            <h1>最強英國地區全面分析</h1>
+            <h1 className="chineseheader">英國民間分析員阿P</h1>
         </div>
       </div>
       <section className="blog-section">
