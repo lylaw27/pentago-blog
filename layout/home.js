@@ -19,21 +19,10 @@ export default function Home({blogs, sidebar, pagination}){
         <Head>
             <title>英國民間分析員阿P - 最強英國地區全面分析</title>
             <meta name="description" content="由國家宏觀經濟、地區樓價及學校數據以至各類主題分析。無論買樓投資或海外升學，下決定前參考數據非常重要"/>
-            <meta charset="UTF-8"></meta>
+            <meta charSet="UTF-8"></meta>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <link rel="icon" href="/favicon.ico"/>
         </Head>
-      <Script src="https://kit.fontawesome.com/dbb3bd5296.js" crossorigin="anonymous"/>
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{__html: `(window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-TJ8JNZMR1Y');)`,}}/>
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ8JNZMR1Y"></Script>
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{__html: `(!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '730992154174691');fbq('track', 'PageView');)`}}>
-    </Script>
         <Header/>
       <div className="overlap">
       <div className="background">

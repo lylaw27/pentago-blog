@@ -103,7 +103,6 @@ i:hover{
   margin: 40px 0 0 0;
   font-size: 10px;
 } 
-
 /* PHONE */
 @media only screen and (max-width: 1025px) {
   header{
@@ -128,7 +127,7 @@ i:hover{
   .nav-item{
     display: block;
     color: white;
-    padding: 20px;
+    padding: 25px;
     text-align: center;
   }
   .nav-item i{
@@ -142,8 +141,9 @@ i:hover{
     height: 200px;
     padding: 50px 20px;
   }
-  .footer i{
-    margin: 20px;
+  .footer-icons i{
+    padding: 18px;
+    margin: 0;
   }
   .footer-logo{
     display: none;
