@@ -73,7 +73,7 @@ export function Blogdetail({blogContent,suggestion}){
     <div className="blog-wrapper">
         <div className="blog-list">
             <div className='blog-Content'>
-                <h1>{blogContent.title}</h1>
+                <h1 className='content-header'>{blogContent.title}</h1>
                 <div style={{display: blogContent.videoUrl ? 'none' : 'block', margin: '30px 0px'}}>
                     <ImageGallery items={blogContent.imagefile} showFullscreenButton={false} showPlayButton={false}/>
                 </div>
