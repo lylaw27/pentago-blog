@@ -38,8 +38,7 @@ export default function Home({blogs, sidebar, pagination}){
       <div className="overlap">
       <div className="background">
         <div className="title">
-            <h1>最強英國地區全面分析</h1>
-            <h1 className="chineseheader">英國民間分析員阿P</h1>
+            <h1>最強英國地區全面分析<br/>英國民間分析員阿P</h1>
         </div>
       </div>
       <section className="blog-section">
