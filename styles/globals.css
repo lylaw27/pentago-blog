@@ -2,11 +2,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @font-face {
   font-family: 'Openhuninn';
-  src: url('/fonts/jf-openhuninn-1.1.ttf');
+  src: url('/fonts/jf-openhuninn-1.1.ttf') format('truetype');
 }
 @font-face {
   font-family: 'PMingLiU';
-  src: url('/fonts/PMingLiU.ttf');
+  src: url('/fonts/PMingLiU.ttf') format('truetype');
 }
 body {
   margin: 0;
