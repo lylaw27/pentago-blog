@@ -18,7 +18,7 @@ export async function getStaticProps(){
         let string2 = string1.replace(regex1,' ').trim()
         let regex2 = /\s/g;
         let result = string2.replace(regex2,'-');
-        blogs.updateOne({_id: item._id},{'$set':{'url': result}})
+        blogs.updateOne({_id: item._id},{$set:{'url': result}})
     }
     )
     return{
