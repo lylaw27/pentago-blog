@@ -9,13 +9,13 @@
   src: url('/fonts/PMingLiU.ttf') format('truetype');
 }
 @font-face {
-  font-family: '超研泽新艺体f';
-  src: url('/fonts/超研泽新艺体f.tff') format('truetype');
+  font-family: 'wiv';
+  src: url('/fonts/wiv.tff') format('truetype');
 }
 body {
   margin: 0;
   padding: 0;
-  font-family: '超研泽新艺体f','Openhuninn','PMingLiU', 'Montserrat', 'Noto Sans TC', sans-serif;
+  font-family: 'wiv','Openhuninn','PMingLiU', 'Montserrat', 'Noto Sans TC', sans-serif;
   font-weight: 300;
 }
 header {
