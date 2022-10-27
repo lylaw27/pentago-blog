@@ -62,14 +62,14 @@ function BlogList({blogs}){
             {blogs.uploadDate}
             </div>
             <div className="blog-list-img">
-              <Image alt="" src={blogs.imagefile[0]} layout="fill" objectFit="contain"/>
+              <Image alt={blogs.title} src={blogs.imagefile[0]} layout="fill" objectFit="contain"/>
             </div>
             <span className="blog-tag">
             {blogs.category}
             </span>
-            <h2 className='blog-list-title'>
+            <h1 className='blog-list-title'>
             {blogs.title}
-            </h2>
+            </h1>
             <p className='blog-list-subtitle'>
             {blogs.subtitle}
             </p>

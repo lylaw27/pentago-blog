@@ -25,7 +25,8 @@ export async function getStaticProps(context){
                 _id: blogContent._id.toString(),
                 title: blogContent.title,
                 imagefile: blogContent.imagefile.map(data=>({
-                    original: data
+                    original: data,
+                    originalAlt: blogContent.title
                 })),
                 article: blogContent.article,
                 videoUrl: blogContent.videoUrl
