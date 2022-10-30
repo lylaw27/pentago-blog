@@ -85,7 +85,7 @@ export function Blogdetail({blogContent,suggestion}){
             <h3 className="suggestion-title">你可能會喜歡</h3>
                 <div className="suggestion">
                     {suggestion.map((suggest,i) =>
-                        <Link href={`/content/${suggest._id}`} key={i} >
+                        <Link href={`/content/${suggest.url}`} key={i} >
                             <div className={"suggest-list-" + i + " suggest-list pointer"}>
                                <div className="suggest-image" style={{backgroundImage: `url(${suggest.imagefile})`}}/>
                                 <h3>{suggest.title}</h3>

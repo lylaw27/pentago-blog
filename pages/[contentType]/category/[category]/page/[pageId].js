@@ -41,16 +41,16 @@ export async function getStaticProps(context){
     return{
         props: {
           blogs: blogList.map(data=>({
-                    _id: data._id.toString(),
                     title: data.title,
                     subtitle: data.subtitle,
                     imagefile: data.imagefile,
                     category: data.category,
                     uploadDate: data.uploadDate,
+                    url: data.url
                   })),
           sidebar: recentBlog.map(data=>({
-                      _id: data._id.toString(),
                       title: data.title,
+                      url: data.url
                   })),
           pagination: {
             count: blogCount.toString(),

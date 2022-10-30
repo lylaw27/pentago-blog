@@ -13,7 +13,7 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
 });
 
 export default function CreateBlog(){
-    const { useBlogContent, useArticle, useBlogImage} =useContext(BlogContext);
+    const {useBlogContent, useArticle, useBlogImage} =useContext(BlogContext);
     const [blogContent,setBlogContent] = useBlogContent;
     const [blogImage,setBlogImage] = useBlogImage;
     const [submitDisabled,setSubmitDisabled] = useState(false);
@@ -30,7 +30,9 @@ export default function CreateBlog(){
             category: "樓價",
             contentType: "英國懶人包",
             uploadDate : "",
-            imagefile: []
+            imagefile: [],
+            url: "",
+            image_id: [],
             });
             setBlogImage([]);
             setArticle('');

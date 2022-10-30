@@ -12,8 +12,9 @@ export  const BlogProvider = (props) => {
         category: "樓價",
         contentType: "英國懶人包",
         uploadDate : "",
+        image_id: [],
+        url: "",
         imagefile: [],
-        image_id: []
   })
   const [article,setArticle] = useState('')
   const [blogImage,setBlogImage] = useState([]);

@@ -73,7 +73,7 @@ function BlogList({blogs}){
             <p className='blog-list-subtitle'>
             {blogs.subtitle}
             </p>
-              <Link href={`/content/${blogs._id}`} >
+              <Link href={`/content/${blogs.url}`} >
                 <div className="blog-read">
                   閲讀更多
                 </div>
