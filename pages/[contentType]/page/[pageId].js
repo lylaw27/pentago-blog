@@ -21,10 +21,10 @@ export async function getStaticPaths() {
 export async function getStaticProps(context){
     const blogs = await Dbconnect('blogs')
     let page = context.params.pageId
-    let type = context.params.contentType
+    let contentType = context.params.contentType
     const recordPerPage = 8;
     if(!page){page = 1}
-    const blogList = await blogs.find({contentType: type})
+    const blogList = await blogs.find({contentType: contentType})
                                 .sort({timestamp: -1})
                                 .skip((page-1) * recordPerPage)
                                 .limit(recordPerPage)
@@ -33,7 +33,7 @@ export async function getStaticProps(context){
                                 .sort({timestamp: -1})
                                 .limit(recordPerPage)
                                 .toArray();
-    const blogCount = await blogs.countDocuments({contentType: type})
+    const blogCount = await blogs.countDocuments({contentType: contentType})
         // if(!result){res.send("notfound")}
     return{
         props: {
@@ -51,7 +51,11 @@ export async function getStaticProps(context){
                   })),
           pagination:{
             count: blogCount.toString(),
-            contentType: type
+            contentType: contentType
+          },
+          metatag: {
+            title: contentType + ' | 英國民間分析員阿P',
+            description: '由國家宏觀經濟、地區樓價及學校數據以至各類主題分析。無論買樓投資或海外升學，下決定前參考數據非常重要'
           }
         },
         revalidate: 30

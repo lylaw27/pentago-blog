@@ -9,7 +9,7 @@ import BlogPagination from '../components/blogpagination.js';
 import BlogSidebar from '../components/blogsidebar';
 import BlogSubscription from '../components/subscription.js';
 
-export default function Home({blogs, sidebar, pagination}){ 
+export default function Home({blogs, sidebar, pagination, metatag}){ 
   const scrollRef = useRef(null);
   const scrollToSub = () =>{
     scrollRef.current.scrollIntoView({behavior: 'smooth'});
@@ -17,8 +17,8 @@ export default function Home({blogs, sidebar, pagination}){
     return(
     <div>
         <Head>
-            <title>英國民間分析員阿P - 最強英國地區全面分析</title>
-            <meta name="description" content="由國家宏觀經濟、地區樓價及學校數據以至各類主題分析。無論買樓投資或海外升學，下決定前參考數據非常重要"/>
+            <title>{metatag.title}</title>
+            <meta name="description" content={metatag.description}/>
             <meta charSet="UTF-8"></meta>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <link rel="icon" href="/favicon.ico"/>
