@@ -19,23 +19,6 @@ export default function CreateBlog(){
     const [submitDisabled,setSubmitDisabled] = useState(false);
     const [article,setArticle] = useArticle;
     const imageInput = useRef();
-    const [loading,setLoading] = useState(true)
-    useEffect(()=>{
-           setBlogContent({
-            title: "",
-            subtitle: "",
-            article: "",
-            timestamp: "",
-            videoUrl: "",
-            category: "樓價",
-            contentType: "英國懶人包",
-            uploadDate : "",
-            imagefile: []
-            });
-            setBlogImage([]);
-            setArticle('');
-            setLoading(false) 
-    },[]) // eslint-disable-line react-hooks/exhaustive-deps
     const ChangeHandler = (e) =>{
         let target = e.target;
         let name = target.name;
@@ -109,9 +92,6 @@ export default function CreateBlog(){
                 const result = await res.data;
                 alert('Saved as Draft!');
                 setSubmitDisabled(false);
-            }
-            if(loading){
-                return <></>
             }
         return(
             <div>

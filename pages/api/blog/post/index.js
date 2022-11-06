@@ -46,6 +46,7 @@ export default async function blogPost(req,res){
             let postArticle = fields.blogArticle;
             let newBlog = JSON.parse(postData);
             newBlog.article = postArticle;
+            newBlog.imagefile = [];
             newBlog = dataProcessor(newBlog);
             if(!files.blogImage.length){
                 files.blogImage = [files.blogImage]
