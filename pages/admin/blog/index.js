@@ -107,6 +107,6 @@ export const getServerSideProps = withPageAuthRequired({
                     uploadDate: data.uploadDate,
                   })),
           pagination: blogCount.toString(),
-        },
+        }
         }
     }})
