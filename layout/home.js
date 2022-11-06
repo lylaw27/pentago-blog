@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import Script from 'next/script';
 import {useRef} from 'react';
 import Header from '../components/header.js';
 import Footer from '../components/footer.js';
@@ -32,7 +31,7 @@ export default function Home({blogs, sidebar, pagination, metatag}){
       </div>
       <section className="blog-section">
         <div className="blog-body">
-          <BlogList blogs={blogs}/>
+          <BlogList blogs={blogs} metatag={metatag}/>
           <BlogSidebar scollFunc={scrollToSub} sidebar={sidebar} contentType={pagination.contentType}/>
         </div>
           <BlogPagination pagination={pagination}/>
@@ -45,7 +44,22 @@ export default function Home({blogs, sidebar, pagination, metatag}){
     </div>
   )
 }
-function BlogList({blogs}){
+
+function BlogHeader({metatag}){
+  let divider = ' / ';
+  if(!metatag.category){
+     divider = '';
+  }
+return (
+      <div className="blog-header-wrapper">
+          <Link href={`/${metatag.contentType}`}><h1 className="blog-header pointer">{metatag.contentType}</h1></Link>
+          <span className="blog-header-divider">{divider}</span>
+          <Link href={`/${metatag.contentType}/category/${metatag.category}`}><h1 className="blog-header pointer">{metatag.category}</h1></Link>
+      </div>
+    )
+}
+
+function BlogList({blogs,metatag}){
     if(!blogs){
     return(
         <div className="blog-wrapper">
@@ -56,6 +70,7 @@ function BlogList({blogs}){
     )}
     return(
         <div className="blog-wrapper">
+        <BlogHeader metatag={metatag}/>
         {blogs.map((blogs,i) =>
         <div className="blog-list" key={i}>
             <div className="blog-date">

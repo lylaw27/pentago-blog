@@ -54,6 +54,8 @@ export async function getStaticProps(context){
           },
           metatag: {
             title: contentType + ': ' + category + ' | 英國民間分析員阿P',
+            category: category,
+            contentType: contentType,
             description: '由國家宏觀經濟、地區樓價及學校數據以至各類主題分析。無論買樓投資或海外升學，下決定前參考數據非常重要'
           }
         },
