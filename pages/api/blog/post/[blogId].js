@@ -1,14 +1,7 @@
 import {v2 as cloudinary} from 'cloudinary';
 import Dbconnect from '../../../../components/db';
 import { ObjectId } from 'mongodb';
-import formidable from 'formidable';
 
-export const config = {
-    api: {
-      bodyParser: false
-    }
-  }
-  
 cloudinary.config({
     cloud_name: "pentagoproperty",
     api_key: "856789475668125",
@@ -51,28 +44,21 @@ const dataProcessor = (newBlog) => {
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
         const blogs = await Dbconnect('blogs')
-        const {blogId} = req.query;
-        const form = formidable({ multiples: true });
-        form.keepExtensions = true;
-        form.multiples = true;
-        form.parse(req, async (err, fields, files) =>{
-            let postData= fields.blogInfo;
-            let postArticle = fields.blogArticle;
-            let newBlog = JSON.parse(postData);
-            newBlog.article = postArticle;
+            let newBlog = req.body.blogContent;
+            const {blogId} = req.query;
+            let imageUrl = [];
+            newBlog.article = req.body.article;
             newBlog = dataProcessor(newBlog);
-            if(!files.blogImage.length){
-                files.blogImage = [files.blogImage]
-            }
             deleteImage(newBlog.image_id);
-            for (let i=0; i<files.blogImage.length;i++){
-                await cloudinary.uploader.upload(files.blogImage[i].filepath, {folder : 'BlogListings'},(error, result)=>{
-                    newBlog.imagefile.push(result.url);
+            for (let i=0; i<newBlog.imagefile.length;i++){
+                 await cloudinary.uploader.upload(newBlog.imagefile[i].original, {folder : 'BlogListings'},(error, result)=>{
+                    imageUrl.push(result.url);
                     newBlog.image_id.push(result.public_id);
             })}
+            newBlog.imagefile = imageUrl;
             await blogs.updateOne({_id: ObjectId(blogId)},newBlog);
-        })
         res.status(201).json({msg: "Upload Completed!"});
     }
 }
+
 
