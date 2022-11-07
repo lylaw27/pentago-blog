@@ -1,19 +1,11 @@
 import {v2 as cloudinary} from 'cloudinary';
 import Dbconnect from '../../../../components/db';
-var multiparty = require('multiparty');
-
-export const config = {
-    api: {
-      bodyParser: false
-    }
-  }
   
 cloudinary.config({
     cloud_name: "pentagoproperty",
     api_key: "856789475668125",
     api_secret: "S2ggAr_6H5aUw5e9zq0LP5xqa2I",
 });
-
 
 const dataProcessor = (newBlog) => {
     //dateProcessor
@@ -38,21 +30,17 @@ const dataProcessor = (newBlog) => {
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
         const blogs = await Dbconnect('blogs')
-        const form = new multiparty.Form();
-        form.parse(req, async(err, fields, files) =>{
-            let postData= fields.blogInfo;
-            let postArticle = fields.blogArticle;
-            let newBlog = JSON.parse(postData);
-            newBlog.article = postArticle;
-            newBlog.imagefile = [];
+            let newBlog = req.body.blogContent
+            let imageUrl = []
+            newBlog.article = req.body.article;
             newBlog = dataProcessor(newBlog);
-            for (let i=0; i<files.blogImage.length;i++){
-                 await cloudinary.uploader.upload(files.blogImage[i].path, {folder : 'BlogListings'},(error, result)=>{
-                    newBlog.imagefile.push(result.url);
+            for (let i=0; i<newBlog.imagefile.length;i++){
+                 await cloudinary.uploader.upload(newBlog.imagefile[i].original, {folder : 'BlogListings'},(error, result)=>{
+                    imageUrl.push(result.url);
                     newBlog.image_id.push(result.public_id);
             })}
+            newBlog.imagefile = imageUrl;
             await blogs.insertOne(newBlog);
-        })
         res.status(201).json({msg: "Upload Completed!"});
     }
 }

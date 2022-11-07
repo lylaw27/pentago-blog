@@ -25,16 +25,26 @@ export default function CreateBlog(){
         let value = target.value;
         setBlogContent({...blogContent,[name]: value});
     }
-    const ImageSelectionHandler = (e) => {
+    const ImageSelectionHandler = async(e) => {
         const files = e.target.files
         let imageArray = [];
         setBlogImage(files);
         for(let i=0;i<files.length;i++){
-            const imageUrl = URL.createObjectURL(files[i]);
-            imageArray.push({original: imageUrl});
+            const result = await blobToBase64(files[i])
+            imageArray.push({original: result});
         }
         setBlogContent({...blogContent, imagefile: imageArray});
     }
+    let blobToBase64 = function(blob) {
+        return new Promise( resolve=>{
+          let reader = new FileReader();
+          reader.onload = function() {
+            let dataUrl = reader.result;
+            resolve(dataUrl);
+          };
+          reader.readAsDataURL(blob);
+        });
+      }
     const clearAll = () =>{
         if(confirm('Are you sure you want to clear all contents?')){
            setBlogContent({
@@ -56,18 +66,11 @@ export default function CreateBlog(){
     const submit = async(e) => {
         e.preventDefault();
         if(confirm('Confirm Upload?')){
-        const submission = JSON.stringify(blogContent);
-        const blogArticle = JSON.stringify(article);
-        let data = new FormData();
-        for(let i=0;i<blogImage.length;i++){
-            data.append('blogImage',blogImage[i])
-        }
-        data.append('blogInfo',submission);
-        data.append('blogArticle',blogArticle);
         setSubmitDisabled(true);
         const res = await fetch('/api/blog/post',{
             method:'POST',
-            body: data
+            body: JSON.stringify({blogContent,article}),
+            headers: {'Content-Type': 'application/json'}
         })
             const result = await res.data;
             alert('Upload succeed!');
