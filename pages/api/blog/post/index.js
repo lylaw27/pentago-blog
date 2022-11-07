@@ -1,6 +1,6 @@
 import {v2 as cloudinary} from 'cloudinary';
 import Dbconnect from '../../../../components/db';
-import formidable from 'formidable';
+var multiparty = require('multiparty');
 
 export const config = {
     api: {
@@ -38,21 +38,16 @@ const dataProcessor = (newBlog) => {
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
         const blogs = await Dbconnect('blogs')
-        const form = formidable({ multiples: true });
-        form.keepExtensions = true;
-        form.multiples = true;
-        form.parse(req, async (err, fields, files) =>{
+        const form = new multiparty.Form();
+        form.parse(req, async(err, fields, files) =>{
             let postData= fields.blogInfo;
             let postArticle = fields.blogArticle;
             let newBlog = JSON.parse(postData);
             newBlog.article = postArticle;
             newBlog.imagefile = [];
             newBlog = dataProcessor(newBlog);
-            if(!files.blogImage.length){
-                files.blogImage = [files.blogImage]
-            }
             for (let i=0; i<files.blogImage.length;i++){
-                await cloudinary.uploader.upload(files.blogImage[i].filepath, {folder : 'BlogListings'},(error, result)=>{
+                 await cloudinary.uploader.upload(files.blogImage[i].path, {folder : 'BlogListings'},(error, result)=>{
                     newBlog.imagefile.push(result.url);
                     newBlog.image_id.push(result.public_id);
             })}
