@@ -7,9 +7,8 @@ import Dbconnect from '../../../components/db.js';
 export default function BlogContent({sidebar, suggestion}){
     const {useBlogContent, useArticle, useBlogImage} = useContext(BlogContext);
     const [blogContent,setBlogContent] = useBlogContent
-    const [blogImage,setBlogImage] = useBlogImage
     const [article,setArticle] = useArticle
-    return <BlogLayout blogContent={blogContent} blogImage={blogImage} article={article} suggestion={suggestion} sidebar={sidebar}></BlogLayout>
+    return <BlogLayout blogContent={blogContent} article={article} suggestion={suggestion} sidebar={sidebar}></BlogLayout>
 }
 
 export async function getStaticProps(){

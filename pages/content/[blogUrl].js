@@ -9,7 +9,7 @@ export async function getStaticPaths(){
     const blogs = await Dbconnect('blogs');
     const idArray = await blogs.distinct("url");
     const paths = idArray.map(url => ({params: {blogUrl: url.toString()}}))
-    return{paths, fallback: 'blocking'}
+    return{paths, fallback: false}
 }
 
 export async function getStaticProps(context){
