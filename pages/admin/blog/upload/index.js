@@ -1,4 +1,4 @@
-import React, {useContext,useState,useRef,useEffect} from 'react';
+import React, {useContext,useState,useRef} from 'react';
 import Toolbar from '../../../../components/toolbar';
 import Script from 'next/script';
 import Head from 'next/head';
@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import 'suneditor/dist/css/suneditor.min.css';
 import Link from 'next/link';
 import BlogContext from '../../../../context/preview';
+import axios from 'axios';
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
@@ -27,24 +28,14 @@ export default function CreateBlog(){
     }
     const ImageSelectionHandler = async(e) => {
         const files = e.target.files
-        let imageArray = [];
-        setBlogImage(files);
+        let imagePreview = [];
+        setBlogImage(Object.values(files));
         for(let i=0;i<files.length;i++){
-            const result = await blobToBase64(files[i])
-            imageArray.push({original: result});
+            const imageUrl = URL.createObjectURL(files[i]);
+            imagePreview.push({original: imageUrl});
         }
-        setBlogContent({...blogContent, imagefile: imageArray});
+        setBlogContent({...blogContent, imagefile: imagePreview});
     }
-    let blobToBase64 = function(blob) {
-        return new Promise( resolve=>{
-          let reader = new FileReader();
-          reader.onload = function() {
-            let dataUrl = reader.result;
-            resolve(dataUrl);
-          };
-          reader.readAsDataURL(blob);
-        });
-      }
     const clearAll = () =>{
         if(confirm('Are you sure you want to clear all contents?')){
            setBlogContent({
@@ -63,18 +54,32 @@ export default function CreateBlog(){
             setArticle('');
         }
     }
+    const uploadImage = async()=>{
+        let imageUrl = [];
+        let imageId = [];
+        for(let i=0 ; i<blogImage.length;i++){
+            const formData = new FormData();
+            formData.append('file',blogImage[i])
+            formData.append('upload_preset','cqjtny6l')
+            axios.post('https://api.cloudinary.com/v1_1/pentagoproperty/image/upload',formData)
+            .then((res)=>{
+                imageUrl.push(res.data.secure_url);
+                imageId.push(res.data.public_id);
+                console.log(res)
+            })
+            .catch((error)=>{console.log(error.response)})
+        }
+        setBlogContent({...blogContent, imagefile: imageUrl, image_id: imageId});
+    }
     const submit = async(e) => {
         e.preventDefault();
         if(confirm('Confirm Upload?')){
+        await uploadImage();
         setSubmitDisabled(true);
-        const res = await fetch('/api/blog/post',{
-            method:'POST',
-            body: JSON.stringify({blogContent,article}),
-            headers: {'Content-Type': 'application/json'}
-        })
-            const result = await res.data;
-            alert('Upload succeed!');
-            setSubmitDisabled(false);
+        const res = await axios.post('/api/blog/post',{blogContent,article})
+        const result = await res.data;
+        alert('Upload Successful!');
+        setSubmitDisabled(false);
         }
         }
         const save = async(e) => {

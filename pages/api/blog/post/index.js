@@ -29,19 +29,20 @@ const dataProcessor = (newBlog) => {
 
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
-        const blogs = await Dbconnect('blogs')
-            let newBlog = req.body.blogContent
-            let imageUrl = []
+            console.log('received')
+            const blogs = await Dbconnect('blogs');
+            let newBlog = req.body.blogContent;
+            // let imageUrl = [];
             newBlog.article = req.body.article;
-            newBlog = dataProcessor(newBlog);
-            for (let i=0; i<newBlog.imagefile.length;i++){
-                 await cloudinary.uploader.upload(newBlog.imagefile[i].original, {folder : 'BlogListings'},(error, result)=>{
-                    imageUrl.push(result.url);
-                    newBlog.image_id.push(result.public_id);
-            })}
-            newBlog.imagefile = imageUrl;
+            newBlog = await dataProcessor(newBlog);
+            // for (let i=0; i<newBlog.imagefile.length;i++){
+            //         await cloudinary.uploader.upload(newBlog.imagefile[i].original, {folder : 'BlogListings'},(error, result)=>{
+            //         imageUrl.push(result.url);
+            //         newBlog.image_id.push(result.public_id);
+            // })}
+            // newBlog.imagefile = imageUrl;
             await blogs.insertOne(newBlog);
-        res.status(201).json({msg: "Upload Completed!"});
+            res.status(201).json({msg: "Upload Completed!"});
     }
 }
 
