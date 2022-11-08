@@ -34,15 +34,15 @@ export default function EditBlog({blogEdit}){
         setBlogContent({...blogContent,[name]: value});
 
     }
-    const ImageSelectionHandler = (e) => {
+    const ImageSelectionHandler = async(e) => {
         const files = e.target.files
-        let imageArray = [];
-        setBlogImage(files);
+        let imagePreview = [];
+        setBlogImage(Object.values(files));
         for(let i=0;i<files.length;i++){
             const imageUrl = URL.createObjectURL(files[i]);
-            imageArray.push({original: imageUrl});
+            imagePreview.push({original: imageUrl});
         }
-        setBlogContent({...blogContent, imagefile: imageArray});
+        setBlogContent({...blogContent, imagefile: imagePreview});
     }
     const clearAll = () =>{
         if(confirm('Are you sure you want to clear all contents?')){
@@ -62,50 +62,34 @@ export default function EditBlog({blogEdit}){
             setArticle('');
         }
     }
+    const uploadImage = async()=>{
+        let imageUrl = [];
+        let imageId = [];
+        let result;
+        for(let i=0 ; i<blogImage.length;i++){
+            const formData = new FormData();
+            formData.append('file',blogImage[i])
+            formData.append('upload_preset','cqjtny6l')
+            const res = await axios.post('https://api.cloudinary.com/v1_1/pentagoproperty/image/upload',formData)
+            imageUrl.push(res.data.secure_url);
+            imageId.push(res.data.public_id);
+            console.log(res)
+        }
+        result = {...blogContent, imagefile: imageUrl, image_id: imageId, article: article};
+        console.log(result)
+        return result
+    }
     const submit = async(e) => {
         e.preventDefault();
         if(confirm('Confirm Upload?')){
-        const submission = JSON.stringify(blogContent);
-        const blogArticle = JSON.stringify(article);
-        let data = new FormData();
-        for(let i=0;i<blogImage.length;i++){
-            data.append('blogImage',blogImage[i])
-        }
-        data.append('blogInfo',submission);
-        data.append('blogArticle',blogArticle);
+        const payload = await uploadImage();
+        console.log(payload)
         setSubmitDisabled(true);
-        const res = await fetch('/api/blog/edit',{
-            method:'POST',
-            body: data
-        })
-            const result = await res.data;
-            alert('Upload succeed!');
-            setSubmitDisabled(false);
-        }
-        }
-        const save = async(e) => {
-            e.preventDefault();
-            const submission = JSON.stringify(blogContent);
-            const blogArticle = JSON.stringify(article);
-            let data = new FormData();
-            for(let i=0;i<blogImage.length;i++){
-                data.append('blogImage',blogImage[i])
-            }
-            data.append('blogInfo',submission);
-            data.append('blogArticle',blogArticle);
-            setSubmitDisabled(true);
-            const res = await fetch(`/api/blog/post/${blogEdit._id}`,{
-                method:'POST',
-                body: data
-            })
-                const result = await res.data;
-                alert('Saved as Draft!');
-
-                setSubmitDisabled(false);
-            }
-            if(loading){
-                return <></>
-            }
+        const res = await axios.post(`/api/blog/${blogEdit._id}`,{payload})
+        const result = await res.data;
+        alert('Upload Successful!');
+        setSubmitDisabled(false);
+    }}
         return(
             <div>
             <Head>

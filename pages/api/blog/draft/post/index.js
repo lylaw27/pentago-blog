@@ -1,11 +1,5 @@
 import {v2 as cloudinary} from 'cloudinary';
-import Dbconnect from '../../../components/db';
-  
-cloudinary.config({
-    cloud_name: "pentagoproperty",
-    api_key: "856789475668125",
-    api_secret: "S2ggAr_6H5aUw5e9zq0LP5xqa2I",
-});
+import Dbconnect from '../../../../../components/db';
 
 const dataProcessor = (newBlog) => {
     //dateProcessor

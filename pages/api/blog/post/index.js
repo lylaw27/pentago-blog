@@ -1,11 +1,4 @@
-import {v2 as cloudinary} from 'cloudinary';
 import Dbconnect from '../../../../components/db';
-  
-cloudinary.config({
-    cloud_name: "pentagoproperty",
-    api_key: "856789475668125",
-    api_secret: "S2ggAr_6H5aUw5e9zq0LP5xqa2I",
-});
 
 const dataProcessor = (newBlog) => {
     //dateProcessor
@@ -29,7 +22,6 @@ const dataProcessor = (newBlog) => {
 
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
-            console.log('received')
             const blogs = await Dbconnect('blogs');
             let newBlog = req.body.payload;
             newBlog = await dataProcessor(newBlog);

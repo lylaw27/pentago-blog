@@ -7,22 +7,15 @@ import Toolbar from '../../../components/toolbar.js';
 import QueryPagination from '../../../components/querypagination.js';
 import Dbconnect from '../../../components/db.js';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import axios from 'axios';
 
 const AdminBlogListings = ({blogs, pagination}) => {
     let router = useRouter();
-    const deleteBlog = async (blogId,imageId) =>{
+    const deleteBlog = async (_id,image_id) =>{
         let confirmDelete = window.confirm('Are you sure you want to delete this blog?')
         if(confirmDelete){
-            const res = await fetch('/api/blog/delete',{
-                method: 'DELETE',
-                body: JSON.stringify({
-                    _id: blogId,
-                    image_id: imageId
-                }),
-                headers: {'Content-Type': 'application/json'}
-            })
-            const data = await res.json();
-            alert(data.msg);
+            await axios.post('/api/blog/delete',{_id: _id,image_id: image_id})
+            alert('Deleted!');
             router.reload();
         }
         else{

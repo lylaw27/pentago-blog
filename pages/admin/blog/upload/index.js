@@ -81,27 +81,18 @@ export default function CreateBlog(){
         const result = await res.data;
         alert('Upload Successful!');
         setSubmitDisabled(false);
-        }
-        }
-        const save = async(e) => {
-            e.preventDefault();
-            const submission = JSON.stringify(blogContent);
-            const blogArticle = JSON.stringify(article);
-            let data = new FormData();
-            for(let i=0;i<blogImage.length;i++){
-                data.append('blogImage',blogImage[i])
-            }
-            data.append('blogInfo',submission);
-            data.append('blogArticle',blogArticle);
-            setSubmitDisabled(true);
-            const res = await fetch('/api/blog/draft',{
-                method:'POST',
-                body: data
-            })
-                const result = await res.data;
-                alert('Saved as Draft!');
-                setSubmitDisabled(false);
-            }
+    }}
+    const save = async(e) => {
+        e.preventDefault();
+        if(confirm('Confirm Upload?')){
+        const payload = await uploadImage();
+        console.log(payload)
+        setSubmitDisabled(true);
+        const res = await axios.post('/api/blog/draft',{payload})
+        const result = await res.data;
+        alert('Saved as Draft!');
+        setSubmitDisabled(false);
+    }}
         return(
             <div>
             <Head>
