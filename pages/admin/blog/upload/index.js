@@ -57,26 +57,27 @@ export default function CreateBlog(){
     const uploadImage = async()=>{
         let imageUrl = [];
         let imageId = [];
+        let result;
         for(let i=0 ; i<blogImage.length;i++){
             const formData = new FormData();
             formData.append('file',blogImage[i])
             formData.append('upload_preset','cqjtny6l')
-            axios.post('https://api.cloudinary.com/v1_1/pentagoproperty/image/upload',formData)
-            .then((res)=>{
-                imageUrl.push(res.data.secure_url);
-                imageId.push(res.data.public_id);
-                console.log(res)
-            })
-            .catch((error)=>{console.log(error.response)})
+            const res = await axios.post('https://api.cloudinary.com/v1_1/pentagoproperty/image/upload',formData)
+            imageUrl.push(res.data.secure_url);
+            imageId.push(res.data.public_id);
+            console.log(res)
         }
-        setBlogContent({...blogContent, imagefile: imageUrl, image_id: imageId});
+        result = {...blogContent, imagefile: imageUrl, image_id: imageId, article: article};
+        console.log(result)
+        return result
     }
     const submit = async(e) => {
         e.preventDefault();
         if(confirm('Confirm Upload?')){
-        await uploadImage();
+        const payload = await uploadImage();
+        console.log(payload)
         setSubmitDisabled(true);
-        const res = await axios.post('/api/blog/post',{blogContent,article})
+        const res = await axios.post('/api/blog/post',{payload})
         const result = await res.data;
         alert('Upload Successful!');
         setSubmitDisabled(false);
