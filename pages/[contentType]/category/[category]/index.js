@@ -10,9 +10,9 @@ export async function getStaticPaths() {
   const category = await blogs.distinct('category')
   const contentType = await blogs.distinct('contentType')
   let paths = [];
-  for(let i=0;i<contentType.length;i++){
-    for(let j=0;j<category.length;j++){
-      let pathArray = {params:{contentType: contentType[i], category: category[j]}}
+  for(const contentTypeItem of contentType){
+    for(const categoryItem of category){
+      let pathArray = {params:{contentType: contentTypeItem, category: categoryItem}}
       paths = paths.concat(pathArray)
     }
   }

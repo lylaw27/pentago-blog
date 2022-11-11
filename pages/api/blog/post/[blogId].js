@@ -47,8 +47,9 @@ export default async function blogPost(req,res){
             let newBlog = req.body.payload;
             const {blogId} = req.query;
             newBlog = await dataProcessor(newBlog);
-            deleteImage(newBlog.image_id);
-            await blogs.updateOne({_id: ObjectId(blogId)},newBlog);
+            deleteImage(newBlog.oldimage);
+            delete newBlog._id;
+            await blogs.updateOne({_id: ObjectId(blogId)},{$set: newBlog});
             res.status(201).json({msg: "Upload Completed!"});
     }
 }

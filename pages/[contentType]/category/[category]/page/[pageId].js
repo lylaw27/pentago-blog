@@ -10,11 +10,11 @@ export async function getStaticPaths() {
     const category = await blogs.distinct('category')
     const contentType = await blogs.distinct('contentType')
     let paths = [];
-    for(let i=0;i<contentType.length;i++){
-        for(let j=0;j<category.length;j++){
-            const pageCount = await blogs.countDocuments({contentType: contentType[i], category: category[j]})
+    for(const contentTypeItem of contentType){
+      for(const categoryItem of category){
+            const pageCount = await blogs.countDocuments({contentType: contentTypeItem, category: categoryItem})
             const maxPage = Math.ceil(pageCount/8)
-            let pathArray = Array.from({length: maxPage},(_,k)=> ({params:{category: category[j], contentType: contentType[i], pageId: (k+1).toString()}}))
+            let pathArray = Array.from({length: maxPage},(_,k)=> ({params:{category: categoryItem, contentType: contentTypeItem, pageId: (k+1).toString()}}))
             paths = paths.concat(pathArray)
         }
       }

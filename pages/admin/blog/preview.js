@@ -8,7 +8,10 @@ export default function BlogContent({sidebar, suggestion}){
     const {useBlogContent, useArticle, useBlogImage} = useContext(BlogContext);
     const [blogContent,setBlogContent] = useBlogContent
     const [article,setArticle] = useArticle
-    return <BlogLayout blogContent={blogContent} article={article} suggestion={suggestion} sidebar={sidebar}></BlogLayout>
+    const imgArray = blogContent.imagefile.map(img => ({original: img}));
+    const blogPreview = {...blogContent, imagefile: imgArray}
+    console.log(blogPreview)
+    return <BlogLayout blogContent={blogPreview} article={article} suggestion={suggestion} sidebar={sidebar}></BlogLayout>
 }
 
 export async function getStaticProps(){

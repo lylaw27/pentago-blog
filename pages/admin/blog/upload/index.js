@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import 'suneditor/dist/css/suneditor.min.css';
 import Link from 'next/link';
 import BlogContext from '../../../../context/preview';
+import Image from 'next/image';
 import axios from 'axios';
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
@@ -17,8 +18,11 @@ export default function CreateBlog(){
     const {useBlogContent, useArticle, useBlogImage} =useContext(BlogContext);
     const [blogContent,setBlogContent] = useBlogContent;
     const [blogImage,setBlogImage] = useBlogImage;
-    const [submitDisabled,setSubmitDisabled] = useState(false);
     const [article,setArticle] = useArticle;
+    const [loading, setLoading] = useState({
+        alertBox: 'none',
+        disableDiv: ''
+    })
     const imageInput = useRef();
     const ChangeHandler = (e) =>{
         let target = e.target;
@@ -30,9 +34,9 @@ export default function CreateBlog(){
         const files = e.target.files
         let imagePreview = [];
         setBlogImage(Object.values(files));
-        for(let i=0;i<files.length;i++){
-            const imageUrl = URL.createObjectURL(files[i]);
-            imagePreview.push({original: imageUrl});
+        for(const image of files){
+            const imageUrl = URL.createObjectURL(image);
+            imagePreview.push(imageUrl);
         }
         setBlogContent({...blogContent, imagefile: imagePreview});
     }
@@ -57,40 +61,38 @@ export default function CreateBlog(){
     const uploadImage = async()=>{
         let imageUrl = [];
         let imageId = [];
-        for(let i=0 ; i<blogImage.length;i++){
+        for(const image of blogImage){
             const formData = new FormData();
-            formData.append('file',blogImage[i])
+            formData.append('file',image)
             formData.append('upload_preset','cqjtny6l')
             const res = await axios.post('https://api.cloudinary.com/v1_1/pentagoproperty/image/upload',formData)
             imageUrl.push(res.data.secure_url);
             imageId.push(res.data.public_id);
-            console.log(res)
         }
         return {imagefile: imageUrl, image_id: imageId};
     }
     const submit = async(e) => {
         e.preventDefault();
         if(confirm('Confirm Upload?')){
+        setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
         const contentWithImage = await uploadImage();
         const payload = {...blogContent, imagefile: contentWithImage.imagefile,image_id: contentWithImage.image_id, article: article}
         console.log(payload)
-        setSubmitDisabled(true);
         const res = await axios.post('/api/blog/post',{payload})
         const result = await res.data;
         alert('Upload Successful!');
-        setSubmitDisabled(false);
+        setLoading({ alertBox: 'none', disableDiv: ''})
     }}
     const save = async(e) => {
         e.preventDefault();
-        if(confirm('Confirm Upload?')){
+        setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
         const payload = await uploadImage();
         console.log(payload)
-        setSubmitDisabled(true);
         const res = await axios.post('/api/blog/draft',{payload})
         const result = await res.data;
         alert('Saved as Draft!');
-        setSubmitDisabled(false);
-    }}
+        setLoading({ alertBox: 'none', disableDiv: ''})
+    }
         return(
             <div>
             <Head>
@@ -99,11 +101,13 @@ export default function CreateBlog(){
             </Head>
             <Script src="https://kit.fontawesome.com/dbb3bd5296.js" crossorigin="anonymous"/>
             <Toolbar/>
-            <div className='uploadpage admin-body'>
+            <div className="loadingBox" style={{display: loading.alertBox}}>Uploading... Please wait</div>
+            <div className={`uploadpage admin-body ${loading.disableDiv}`}>
                 <h2>Create Blog</h2>
                     <form>
                         <label htmlFor="Image">Image</label>
                         <input ref={imageInput} type="file" name="imagefile" accept="image/*" onChange={ImageSelectionHandler} multiple required/><br/>
+                        {blogContent.imagefile.map((img,i) => <div key={i} className='imgPreview'><Image  alt="" src={img} layout='fill' objectFit='contain'/></div> )}
                         <label htmlFor="contentType">Content Type</label>
                         <select className="input-border" name="contentType" onChange={ChangeHandler} value={blogContent.contentType}>
                             <option value="英國懶人包">英國懶人包</option>
@@ -164,11 +168,11 @@ export default function CreateBlog(){
                             }}/>
                         </div>
                         <div className='submit-wrapper'>
-                            <div className="input-border submit-button button-white pointer" onClick={save} type="submit" disabled={submitDisabled}>Save As Draft</div>
+                            <div className="input-border submit-button button-white pointer" onClick={save} type="submit">Save As Draft</div>
                             <div className="input-border submit-button button-white pointer" onClick={clearAll}>Clear All</div>   
                         </div>
                         <div className='submit-wrapper'>
-                            <div className="input-border submit-button button-red pointer" onClick={submit} type="submit" disabled={submitDisabled}>Upload Blog</div>
+                            <div className="input-border submit-button button-red pointer" onClick={submit} type="submit">Upload Blog</div>
                             <Link href={'/admin/blog/preview'}>
                             <div className="input-border submit-button button-red pointer">Preview</div>
                             </Link>

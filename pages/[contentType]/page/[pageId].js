@@ -9,10 +9,10 @@ export async function getStaticPaths() {
   const blogs = await Dbconnect('blogs')
   const contentType = await blogs.distinct('contentType')
   let paths = [];
-    for(let i=0;i<contentType.length;i++){
-      const pageCount = await blogs.countDocuments({contentType: contentType[i]})
+  for(const contentTypeItem of contentType){
+      const pageCount = await blogs.countDocuments({contentType: contentTypeItem})
       const maxPage = Math.ceil(pageCount/8)
-      let pathArray = (Array.from({length: maxPage},(_,j)=> ({params:{contentType: contentType[i], pageId: (j+1).toString()}})))
+      let pathArray = (Array.from({length: maxPage},(_,j)=> ({params:{contentType: contentTypeItem, pageId: (j+1).toString()}})))
       paths = paths.concat(pathArray)
     }
   return {paths,fallback: false}
