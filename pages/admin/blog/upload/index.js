@@ -77,8 +77,7 @@ export default function CreateBlog(){
         setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
         const contentWithImage = await uploadImage();
         const payload = {...blogContent, imagefile: contentWithImage.imagefile,image_id: contentWithImage.image_id, article: article}
-        console.log(payload)
-        const res = await axios.post('/api/blog/post',{payload})
+        const res = await axios.post('/api/blog/blogs',{payload})
         const result = await res.data;
         alert('Upload Successful!');
         setLoading({ alertBox: 'none', disableDiv: ''})
@@ -86,8 +85,8 @@ export default function CreateBlog(){
     const save = async(e) => {
         e.preventDefault();
         setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
-        const payload = await uploadImage();
-        console.log(payload)
+        const contentWithImage = await uploadImage();
+        const payload = {...blogContent, imagefile: contentWithImage.imagefile,image_id: contentWithImage.image_id, article: article}
         const res = await axios.post('/api/blog/draft',{payload})
         const result = await res.data;
         alert('Saved as Draft!');

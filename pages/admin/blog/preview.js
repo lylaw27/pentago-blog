@@ -10,7 +10,6 @@ export default function BlogContent({sidebar, suggestion}){
     const [article,setArticle] = useArticle
     const imgArray = blogContent.imagefile.map(img => ({original: img}));
     const blogPreview = {...blogContent, imagefile: imgArray}
-    console.log(blogPreview)
     return <BlogLayout blogContent={blogPreview} article={article} suggestion={suggestion} sidebar={sidebar}></BlogLayout>
 }
 

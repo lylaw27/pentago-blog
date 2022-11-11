@@ -1,4 +1,25 @@
+import {v2 as cloudinary} from 'cloudinary';
 import Dbconnect from '../../../../components/db';
+import { ObjectId } from 'mongodb';
+
+cloudinary.config({
+    cloud_name: "pentagoproperty",
+    api_key: "856789475668125",
+    api_secret: "S2ggAr_6H5aUw5e9zq0LP5xqa2I",
+});
+
+const deleteImage = (image_id) => {
+    image_id.map((image_id)=>{
+        cloudinary.uploader.destroy(image_id, (err,result)=> {
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(result)
+        }
+    });
+    })
+}
 
 const dataProcessor = (newBlog) => {
     //dateProcessor
@@ -22,12 +43,18 @@ const dataProcessor = (newBlog) => {
 
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
-            const blogs = await Dbconnect('blogs');
+            const collection = req.query.type
+            const blogs = await Dbconnect(collection);
             let newBlog = req.body.payload;
+            const blogId = req.query.blogId;
             newBlog = await dataProcessor(newBlog);
+            if(newBlog.oldimage){
+                deleteImage(newBlog.oldimage);
+            }
             delete newBlog._id;
-            await blogs.insertOne(newBlog);
+            await blogs.updateOne({_id: ObjectId(blogId)},{$set: newBlog});
             res.status(201).json({msg: "Upload Completed!"});
     }
 }
+
 

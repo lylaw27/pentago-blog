@@ -9,44 +9,46 @@ import 'suneditor/dist/css/suneditor.min.css';
 import Link from 'next/link';
 import BlogContext from '../../../../context/preview';
 import { ObjectId } from 'mongodb';
+import axios from 'axios';
+import Image from 'next/image';
 
 const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
 });
 
 export default function EditBlog({blogEdit}){
-    const { useBlogContent, useArticle, useBlogImage} = useContext(BlogContext);
-    const [blogContent,setBlogContent] = useBlogContent
-    const [blogImage,setBlogImage] = useBlogImage
-    const [submitDisabled,setSubmitDisabled] = useState(false);
-    const [article,setArticle] = useArticle
+    const {useBlogContent, useArticle, useBlogImage} = useContext(BlogContext);
+    const [blogContent,setBlogContent] = useBlogContent;
+    const [blogImage,setBlogImage] = useBlogImage;
+    const [article,setArticle] = useArticle;
     const imageInput = useRef();
-    const [loading,setLoading] = useState(true)
+    const [loading, setLoading] = useState({
+        alertBox: 'none',
+        disableDiv: ''
+    })
     useEffect(()=>{
         setBlogContent(blogEdit)
         setArticle(blogEdit.article)
-        setLoading(false)
     },[]) // eslint-disable-line react-hooks/exhaustive-deps
     const ChangeHandler = (e) =>{
         let target = e.target;
         let name = target.name;
         let value = target.value;
         setBlogContent({...blogContent,[name]: value});
-
     }
     const ImageSelectionHandler = async(e) => {
         const files = e.target.files
         let imagePreview = [];
         setBlogImage(Object.values(files));
-        for(let i=0;i<files.length;i++){
-            const imageUrl = URL.createObjectURL(files[i]);
-            imagePreview.push({original: imageUrl});
+        for(const image of files){
+            const imageUrl = URL.createObjectURL(image);
+            imagePreview.push(imageUrl);
         }
         setBlogContent({...blogContent, imagefile: imagePreview});
     }
     const clearAll = () =>{
         if(confirm('Are you sure you want to clear all contents?')){
-           setBlogContent({
+            setBlogContent({
             title: "",
             subtitle: "",
             article: "",
@@ -65,42 +67,50 @@ export default function EditBlog({blogEdit}){
     const uploadImage = async()=>{
         let imageUrl = [];
         let imageId = [];
-        let result;
-        for(let i=0 ; i<blogImage.length;i++){
+        for(const image of blogImage){
             const formData = new FormData();
-            formData.append('file',blogImage[i])
+            formData.append('file',image)
             formData.append('upload_preset','cqjtny6l')
             const res = await axios.post('https://api.cloudinary.com/v1_1/pentagoproperty/image/upload',formData)
             imageUrl.push(res.data.secure_url);
             imageId.push(res.data.public_id);
             console.log(res)
         }
-        result = {...blogContent, imagefile: imageUrl, image_id: imageId, article: article};
-        console.log(result)
-        return result
+        return {imagefile: imageUrl, image_id: imageId};
     }
     const submit = async(e) => {
         e.preventDefault();
         if(confirm('Confirm Upload?')){
-        const payload = await uploadImage();
-        console.log(payload)
-        setSubmitDisabled(true);
-        const res = await axios.post(`/api/blog/post`,{payload})
+        let payload; 
+        setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
+        if(blogEdit.imagefile != blogContent.imagefile){
+            const contentWithImage = await uploadImage();
+            payload = {...blogContent, imagefile: contentWithImage.imagefile,image_id: contentWithImage.image_id, oldimage: blogEdit.image_id,article: article}
+        }
+        else{
+            payload = {...blogContent,article: article}
+        }
+        const res = await axios.post(`/api/blog/blogs`,{payload})
         const result = await res.data;
         alert('Upload Successful!');
-        setSubmitDisabled(false);
+        setLoading({ alertBox: 'none', disableDiv: ''})
     }}
     const save = async(e) => {
         e.preventDefault();
-        if(confirm('Confirm Upload?')){
-        const payload = await uploadImage();
-        console.log(payload)
-        setSubmitDisabled(true);
-        const res = await axios.post(`/api/blog/draft/post/${blogEdit._id}`,{payload})
+        setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
+        let payload;
+        if(blogEdit.imagefile != blogContent.imagefile){
+            const contentWithImage = await uploadImage();
+            payload = {...blogContent, imagefile: contentWithImage.imagefile,image_id: contentWithImage.image_id, oldimage: blogEdit.image_id,article: article}
+        }
+        else{
+            payload = {...blogContent,article: article}
+        }
+        const res = await axios.post(`/api/blog/draft/${blogEdit._id}`,{payload})
         const result = await res.data;
         alert('Saved as Draft!');
-        setSubmitDisabled(false);
-    }}
+        setLoading({ alertBox: 'none', disableDiv: ''})
+    }
         return(
             <div>
             <Head>
@@ -109,11 +119,13 @@ export default function EditBlog({blogEdit}){
             </Head>
             <Script src="https://kit.fontawesome.com/dbb3bd5296.js" crossorigin="anonymous"/>
             <Toolbar/>
-            <div className='uploadpage admin-body'>
+            <div className="loadingBox" style={{display: loading.alertBox}}>Uploading... Please wait</div>
+            <div className={`uploadpage admin-body ${loading.disableDiv}`}>
                 <h2>Edit Blog</h2>
                     <form>
                         <label htmlFor="Image">Image</label>
                         <input ref= {imageInput} type="file" name="imagefile" accept="image/*" onChange={ImageSelectionHandler} multiple required/><br/>
+                        {blogContent.imagefile.map((img,i) => <div key={i} className='imgPreview'><Image alt="" src={img} layout='fill' objectFit='contain'/></div> )}
                         <label htmlFor="contentType">Content Type</label>
                         <select className="input-border" name="contentType" onChange={ChangeHandler} value={blogContent.contentType}>
                             <option value="英國懶人包">英國懶人包</option>
@@ -174,11 +186,11 @@ export default function EditBlog({blogEdit}){
                             }}/>
                         </div>
                         <div className='submit-wrapper'>
-                            <div className="input-border submit-button button-white pointer" onClick={save} type="submit" disabled={submitDisabled}>Save As Draft</div>
+                            <div className="input-border submit-button button-white pointer" onClick={save} type="submit">Save As Draft</div>
                             <div className="input-border submit-button button-white pointer" onClick={clearAll}>Clear All</div>   
                         </div>
                         <div className='submit-wrapper'>
-                            <div className="input-border submit-button button-red pointer" onClick={submit} type="submit" disabled={submitDisabled}>Upload Blog</div>
+                            <div className="input-border submit-button button-red pointer" onClick={submit} type="submit">Upload Blog</div>
                             <Link href={'/admin/blog/preview'}>
                             <div className="input-border submit-button button-red pointer">Preview</div>
                             </Link>
@@ -201,11 +213,11 @@ export const getServerSideProps = withPageAuthRequired({
                     _id: blogContent._id.toString(),
                     title: blogContent.title,
                     subtitle: blogContent.subtitle,
-                    imagefile: blogContent.imagefile.map(data=>({
-                        original: data
-                    })),
+                    imagefile: blogContent.imagefile,
                     image_id: blogContent.image_id,
                     article: blogContent.article,
+                    category: blogContent.category,
+                    contentType: blogContent.contentType,
                     timestamp: blogContent.timestamp.toISOString().split('T')[0],
                     videoUrl: blogContent.videoUrl
                     },

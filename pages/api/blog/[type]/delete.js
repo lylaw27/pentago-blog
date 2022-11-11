@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import Dbconnect from '../../../components/db';
+import Dbconnect from '../../../../components/db';
 import {v2 as cloudinary} from 'cloudinary';
 
 cloudinary.config({
@@ -23,7 +23,8 @@ const deleteImage = (image_id) => {
 
 export default async function blogDelete(req,res){
     if(req.method === 'POST'){
-        const blogs = await Dbconnect('blogs');
+        const collection = req.query.type
+        const blogs = await Dbconnect(collection);
         deleteImage(req.body.image_id);
         await blogs.deleteOne({_id : ObjectId(req.body._id)})
         res.status(201).json({msg: 'Deleted'})

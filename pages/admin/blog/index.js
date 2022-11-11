@@ -5,6 +5,8 @@ import Head from 'next/head.js';
 import { useRouter } from 'next/router'
 import Toolbar from '../../../components/toolbar.js';
 import axios from 'axios';
+import { useEffect,useContext } from 'react';
+import BlogContext from '../../../context/preview';
 import QueryPagination from '../../../components/querypagination.js';
 import Dbconnect from '../../../components/db.js';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
@@ -12,10 +14,14 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 const AdminBlogListings = ({blogs, pagination}) => {
     let router = useRouter();
+    const {useBlogContent, useArticle, useBlogImage} =useContext(BlogContext);
+    const [blogContent,setBlogContent] = useBlogContent;
+    const [blogImage,setBlogImage] = useBlogImage;
+    const [article,setArticle] = useArticle;
     const deleteBlog = async (_id,image_id) =>{
         let confirmDelete = window.confirm('Are you sure you want to delete this blog?')
         if(confirmDelete){
-            await axios.post('/api/blog/delete',{_id: _id,image_id: image_id})
+            await axios.post('/api/blog/blogs/delete',{_id: _id,image_id: image_id})
             alert('Deleted!');
             router.reload();
         }
@@ -23,6 +29,21 @@ const AdminBlogListings = ({blogs, pagination}) => {
             window.close();
         }
     }
+    useEffect(()=>{
+                setBlogContent({
+                title: "",
+                subtitle: "",
+                article: "",
+                timestamp: "",
+                videoUrl: "",
+                category: "樓價",
+                contentType: "英國懶人包",
+                uploadDate : "",
+                imagefile: []
+                });
+                setBlogImage([]);
+                setArticle('');
+            },[]) // eslint-disable-line react-hooks/exhaustive-deps
         return(
         <div>
             <Link href='/admin/blog/upload'>

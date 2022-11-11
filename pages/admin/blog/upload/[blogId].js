@@ -17,7 +17,7 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
 });
 
 export default function EditBlog({blogEdit}){
-    const { useBlogContent, useArticle, useBlogImage} = useContext(BlogContext);
+    const {useBlogContent, useArticle, useBlogImage} = useContext(BlogContext);
     const [blogContent,setBlogContent] = useBlogContent;
     const [blogImage,setBlogImage] = useBlogImage;
     const [article,setArticle] = useArticle;
@@ -48,7 +48,7 @@ export default function EditBlog({blogEdit}){
     }
     const clearAll = () =>{
         if(confirm('Are you sure you want to clear all contents?')){
-           setBlogContent({
+            setBlogContent({
             title: "",
             subtitle: "",
             article: "",
@@ -81,14 +81,36 @@ export default function EditBlog({blogEdit}){
     const submit = async(e) => {
         e.preventDefault();
         if(confirm('Confirm Upload?')){
+        let payload; 
         setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
-        const contentWithImage = await uploadImage();
-        const payload = {...blogContent, imagefile: contentWithImage.imagefile,image_id: contentWithImage.image_id, oldimage: blogEdit.image_id,article: article}
-        const res = await axios.post(`/api/blog/post/${blogEdit._id}`,{payload})
+        if(blogEdit.imagefile != blogContent.imagefile){
+            const contentWithImage = await uploadImage();
+            payload = {...blogContent, imagefile: contentWithImage.imagefile,image_id: contentWithImage.image_id, oldimage: blogEdit.image_id,article: article}
+        }
+        else{
+            payload = {...blogContent,article: article}
+        }
+        const res = await axios.post(`/api/blog/blogs/${blogEdit._id}`,{payload})
         const result = await res.data;
         alert('Upload Successful!');
         setLoading({ alertBox: 'none', disableDiv: ''})
     }}
+    const save = async(e) => {
+        e.preventDefault();
+        setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
+        let payload;
+        if(blogEdit.imagefile != blogContent.imagefile){
+            const contentWithImage = await uploadImage();
+            payload = {...blogContent, imagefile: contentWithImage.imagefile,image_id: contentWithImage.image_id, oldimage: blogEdit.image_id,article: article}
+        }
+        else{
+            payload = {...blogContent,article: article}
+        }
+        const res = await axios.post('/api/blog/draft',{payload})
+        const result = await res.data;
+        alert('Saved as Draft!');
+        setLoading({ alertBox: 'none', disableDiv: ''})
+    }
         return(
             <div>
             <Head>
@@ -164,13 +186,14 @@ export default function EditBlog({blogEdit}){
                             }}/>
                         </div>
                         <div className='submit-wrapper'>
-                            <div className="input-border submit-button button-white pointer" onClick={clearAll}>Clear All</div>
-                            <Link href={'/admin/blog/preview'}>
-                            <div className="input-border submit-button button-white pointer">Preview</div>
-                            </Link>
+                            <div className="input-border submit-button button-white pointer" onClick={save} type="submit">Save As Draft</div>
+                            <div className="input-border submit-button button-white pointer" onClick={clearAll}>Clear All</div>   
                         </div>
                         <div className='submit-wrapper'>
                             <div className="input-border submit-button button-red pointer" onClick={submit} type="submit">Upload Blog</div>
+                            <Link href={'/admin/blog/preview'}>
+                            <div className="input-border submit-button button-red pointer">Preview</div>
+                            </Link>
                         </div>
                     </form>
                 </div>
@@ -193,6 +216,8 @@ export const getServerSideProps = withPageAuthRequired({
                     imagefile: blogContent.imagefile,
                     image_id: blogContent.image_id,
                     article: blogContent.article,
+                    category: blogContent.category,
+                    contentType: blogContent.contentType,
                     timestamp: blogContent.timestamp.toISOString().split('T')[0],
                     videoUrl: blogContent.videoUrl
                     },
