@@ -103,7 +103,7 @@ export default function EditBlog({blogEdit}){
                     <form>
                         <label htmlFor="Image">Image</label>
                         <input ref= {imageInput} type="file" name="imagefile" accept="image/*" onChange={ImageSelectionHandler} multiple required/><br/>
-                        {blogContent.imagefile.map((img) => <div className='imgPreview'><Image src={img} layout='fill' objectFit='contain'/></div> )}
+                        {blogContent.imagefile.map((img,i) => <div key={i} className='imgPreview'><Image src={img} layout='fill' objectFit='contain'/></div> )}
                         <label htmlFor="contentType">Content Type</label>
                         <select className="input-border" name="contentType" onChange={ChangeHandler} value={blogContent.contentType}>
                             <option value="英國懶人包">英國懶人包</option>
