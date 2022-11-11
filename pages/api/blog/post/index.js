@@ -25,6 +25,7 @@ export default async function blogPost(req,res){
             const blogs = await Dbconnect('blogs');
             let newBlog = req.body.payload;
             newBlog = await dataProcessor(newBlog);
+            delete newBlog._id;
             await blogs.insertOne(newBlog);
             res.status(201).json({msg: "Upload Completed!"});
     }
