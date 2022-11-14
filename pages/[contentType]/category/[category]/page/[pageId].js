@@ -46,6 +46,7 @@ export async function getStaticProps(context){
                     imagefile: data.imagefile,
                     category: data.category,
                     uploadDate: data.uploadDate,
+                    contentType: data.contentType,
                     url: data.url
                   })),
           sidebar: recentBlog.map(data=>({

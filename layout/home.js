@@ -46,7 +46,7 @@ export default function Home({blogs, sidebar, pagination, metatag}){
 }
 
 function BlogHeader({metatag}){
-  let divider = ' / ';
+  let divider = '\xa0>\xa0';
   if(!metatag.category){
      divider = '';
   }
@@ -73,26 +73,33 @@ function BlogList({blogs,metatag}){
         <BlogHeader metatag={metatag}/>
         {blogs.map((blogs,i) =>
         <div className="blog-list" key={i}>
+          <Link href={`/content/${blogs.url}`}>
+            <div className="blog-list-img pointer">
+                <Image alt={blogs.title} src={blogs.imagefile[0]} layout="fill" objectFit="contain"/>
+            </div>
+          </Link>
+          <div className='blog-list-info'>
             <div className="blog-date">
             {blogs.uploadDate}
             </div>
-            <div className="blog-list-img">
-              <Image alt={blogs.title} src={blogs.imagefile[0]} layout="fill" objectFit="contain"/>
-            </div>
-            <span className="blog-tag">
+            <Link href={`/${blogs.contentType}/category/${blogs.category}`} >
+            <div className="blog-tag pointer">
             {blogs.category}
-            </span>
-            <h1 className='blog-list-title'>
+            </div>
+            </Link>
+            <Link href={`/content/${blogs.url}`} >
+            <h1 className='blog-list-title pointer'>
             {blogs.title}
             </h1>
+            </Link>
             <p className='blog-list-subtitle'>
             {blogs.subtitle}
             </p>
-              <Link href={`/content/${blogs.url}`} >
-                <div className="blog-read">
-                  閲讀更多
-                </div>
-              </Link>
+{/*             
+              <div className="blog-read">
+                閲讀更多
+              </div> */}
+          </div>
         </div>)}
         </div>
     )

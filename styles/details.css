@@ -1,5 +1,12 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
-
+.blog-content{
+    width: 55%;
+    padding: 0 30px;
+}
+.blog-content a{
+    color: rgb(0, 0, 161);
+    text-decoration: underline;
+  } 
 .content-header{
     font-size: 20px;
 }
@@ -70,6 +77,10 @@
 @media only screen and (max-width: 1025px) {
     .blog-share{
         display: none;
+    }
+    .blog-content{
+        width: 100%;
+        padding: 0 30px;
     }
     .suggestion{
         flex-direction: column;

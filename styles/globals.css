@@ -53,14 +53,11 @@ a {
 }
 .pointer:hover{
   cursor: pointer;
+  text-decoration: underline;
 }
 i:hover{
   cursor: pointer;
 }
-.blog-content a{
-  color: rgb(0, 0, 161);
-  text-decoration: underline;
-} 
 
 .logo {
   width: 230px;

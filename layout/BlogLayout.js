@@ -47,7 +47,7 @@ export default function BlogLayout(props){
                     <a href={`mailto:?subject=${blogContent.title}&body=${currentURL}`}><i className="far fa-envelope"/></a>
                 </div>
                 <Blogdetail {...props}/>
-                <BlogSidebar sidebar={sidebar} scollFunc={scrollToSub}/>
+                <BlogSidebar sidebar={sidebar} contentType={blogContent.contentType} scollFunc={scrollToSub}/>
             </section>
             <section className="mobile-share">
                 <div className="share-wrapper">
@@ -70,9 +70,7 @@ export default function BlogLayout(props){
 
 export function Blogdetail({blogContent,suggestion}){
     return(
-    <div className="blog-wrapper">
-        <div className="blog-list">
-            <div className='blog-Content'>
+    <div className="blog-content">
                 <h1 className='content-header'>{blogContent.title}</h1>
                 <div style={{display: blogContent.videoUrl ? 'none' : 'block', margin: '30px 0px'}}>
                     <ImageGallery items={blogContent.imagefile} showFullscreenButton={false} showPlayButton={false}/>
@@ -81,7 +79,6 @@ export function Blogdetail({blogContent,suggestion}){
                 src={blogContent.videoUrl} style={{display: blogContent.videoUrl ? 'block' : 'none'}}>
                 </iframe>
                 <SunEditor setAllPlugins={false} autoFocus={false} setContents={blogContent.article} disable={true} disableToolbar={true} hideToolbar={true} setOptions={{height: "auto",resizingBar: false, showPathLabel: false}}/>
-            </div>
             <h3 className="suggestion-title">你可能會喜歡</h3>
                 <div className="suggestion">
                     {suggestion.map((suggest,i) =>
@@ -94,6 +91,5 @@ export function Blogdetail({blogContent,suggestion}){
                     )}
                 </div>
         </div>
-    </div>
    )
 }

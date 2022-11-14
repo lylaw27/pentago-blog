@@ -24,6 +24,7 @@ export async function getStaticProps(){
                     title: data.title,
                     subtitle: data.subtitle,
                     imagefile: data.imagefile,
+                    contentType: data.contentType,
                     category: data.category,
                     uploadDate: data.uploadDate,
                     url: data.url

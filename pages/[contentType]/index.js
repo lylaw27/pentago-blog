@@ -33,6 +33,7 @@ export async function getStaticProps(context){
                     subtitle: data.subtitle,
                     imagefile: data.imagefile,
                     category: data.category,
+                    contentType: data.contentType,
                     uploadDate: data.uploadDate,
                     url: data.url
                   })),

@@ -26,6 +26,8 @@ export async function getStaticProps(context){
                     original: data,
                     originalAlt: blogContent.title
                 })),
+                contentType: blogContent.contentType,
+                category: blogContent.category,
                 article: blogContent.article,
                 videoUrl: blogContent.videoUrl,
                 url: blogContent.url
