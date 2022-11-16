@@ -25,23 +25,23 @@
   justify-content: center;
   height: auto;
 }
-.blog-header-wrapper{
+.blog-path-wrapper{
   position: relative;
   font-size: 22px;
   top: 20px;
   color: #7a7a7a;
   
 }
-.blog-header{
+.blog-path{
   font-size: 22px;
   font-weight: 500;
   display: inline-block;
 }
-.blog-header:hover{
+.blog-path:hover{
   color: #6e6e6e;
   text-decoration: underline;
 }
-.blog-header-divider{
+.blog-path-divider{
   color: #7a7a7a;
   font-size: 22px;
   font-weight: 500;
@@ -156,7 +156,7 @@
   .background{
     display: none;
   }
-  .blog-header-wrapper{
+  .blog-path-wrapper{
     display: none;
   }
   .blog-list-img{

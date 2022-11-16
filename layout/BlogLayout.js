@@ -71,7 +71,17 @@ export default function BlogLayout(props){
 export function Blogdetail({blogContent,suggestion}){
     return(
     <div className="blog-content">
-                <h1 className='content-header'>{blogContent.title}</h1>
+        <div className='blog-header'>
+            <Link href={`/${blogContent.contentType}/category/${blogContent.category}`} >
+            <div className="blog-tag pointer">
+            {blogContent.category}
+            </div>
+            </Link>
+                <h1 className='blog-header-title'>{blogContent.title}</h1>
+                <div className="blog-content-date">
+            {blogContent.uploadDate}
+            </div>
+        </div>
                 <div style={{display: blogContent.videoUrl ? 'none' : 'block', margin: '30px 0px'}}>
                     <ImageGallery items={blogContent.imagefile} showFullscreenButton={false} showPlayButton={false}/>
                 </div>

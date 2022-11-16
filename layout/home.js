@@ -51,10 +51,10 @@ function BlogHeader({metatag}){
      divider = '';
   }
 return (
-      <div className="blog-header-wrapper">
-          <Link href={`/${metatag.contentType}`}><h1 className="blog-header pointer">{metatag.contentType}</h1></Link>
-          <span className="blog-header-divider">{divider}</span>
-          <Link href={`/${metatag.contentType}/category/${metatag.category}`}><h1 className="blog-header pointer">{metatag.category}</h1></Link>
+      <div className="blog-path-wrapper">
+          <Link href={`/${metatag.contentType}`}><h1 className="blog-path pointer">{metatag.contentType}</h1></Link>
+          <span className="blog-path-divider">{divider}</span>
+          <Link href={`/${metatag.contentType}/category/${metatag.category}`}><h1 className="blog-path pointer">{metatag.category}</h1></Link>
       </div>
     )
 }

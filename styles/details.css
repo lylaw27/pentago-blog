@@ -1,15 +1,22 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 .blog-content{
+    position: relative;
+    top: 30px;
     width: 55%;
     padding: 0 30px;
 }
 .blog-content a{
     color: rgb(0, 0, 161);
     text-decoration: underline;
-  } 
-.content-header{
-    font-size: 20px;
+  }
+.blog-header-title{
+    font-size: 25px;
 }
+.blog-date{
+    padding: 15px 0;
+    color: #999999;
+    word-spacing: 5px;
+  }
 .blog-video{
     margin: 30px 0;
     width: 100%;
