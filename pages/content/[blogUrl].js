@@ -22,6 +22,7 @@ export async function getStaticProps(context){
         props:{
             blogContent: {
                 title: blogContent.title,
+                subtitle: blogContent.subtitle,
                 imagefile: blogContent.imagefile.map(data=>({
                     original: data,
                     originalAlt: blogContent.title
