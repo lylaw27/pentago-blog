@@ -15,7 +15,7 @@ export async function getStaticPaths() {
       let pathArray = (Array.from({length: maxPage},(_,j)=> ({params:{contentType: contentTypeItem, pageId: (j+1).toString()}})))
       paths = paths.concat(pathArray)
     }
-  return {paths,fallback: blocking}
+  return {paths,fallback: 'blocking'}
 }
 
 export async function getStaticProps(context){

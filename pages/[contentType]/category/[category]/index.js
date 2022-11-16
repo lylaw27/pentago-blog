@@ -16,7 +16,7 @@ export async function getStaticPaths() {
       paths = paths.concat(pathArray)
     }
   }
-  return {paths,fallback: blocking}
+  return {paths,fallback: 'blocking'}
 }
 
 export async function getStaticProps(context){
