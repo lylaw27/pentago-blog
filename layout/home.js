@@ -22,25 +22,27 @@ export default function Home({blogs, sidebar, pagination, metatag}){
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <link rel="icon" href="/favicon.ico"/>
         </Head>
+        <main>
         <Header/>
-      <div className="overlap">
-      <div className="background">
-        <div className="title">
-            <h1>最強英國地區全面分析<br/>英國民間分析員阿P</h1>
+          <div className="overlap">
+          <div className="background">
+            <div className="title">
+                <h1>最強英國地區全面分析<br/>英國民間分析員阿P</h1>
+            </div>
+          </div>
+          <section className="blog-section">
+            <div className="blog-body">
+              <BlogList blogs={blogs} metatag={metatag}/>
+              <BlogSidebar scollFunc={scrollToSub} sidebar={sidebar} contentType={pagination.contentType}/>
+            </div>
+              <BlogPagination pagination={pagination}/>
+          </section>
+          <div ref={scrollRef}>
+            <BlogSubscription/>
+          </div>
+        <Footer/>
         </div>
-      </div>
-      <section className="blog-section">
-        <div className="blog-body">
-          <BlogList blogs={blogs} metatag={metatag}/>
-          <BlogSidebar scollFunc={scrollToSub} sidebar={sidebar} contentType={pagination.contentType}/>
-        </div>
-          <BlogPagination pagination={pagination}/>
-      </section>
-      <div ref={scrollRef}>
-        <BlogSubscription/>
-      </div>
-    <Footer/>
-    </div>
+        </main>
     </div>
   )
 }

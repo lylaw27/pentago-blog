@@ -21,7 +21,7 @@ export default function BlogLayout(props){
     const scrollToSub = () =>{
         scrollRef.current.scrollIntoView({behavior: 'smooth'});
     }
-    const currentURL = `https://researcherp.com/content/${blogContent._id}`
+    const currentURL = `https://researcherp.com/content/${blogContent.url}`
     return (
         <div>
             <Head>
@@ -36,7 +36,7 @@ export default function BlogLayout(props){
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <Script src="https://kit.fontawesome.com/dbb3bd5296.js" crossorigin="anonymous"/>
+            <main>
             <Header/>
             <div className="overlap">
             <section className="blog-body">
@@ -64,13 +64,14 @@ export default function BlogLayout(props){
             </div>
             <Footer/>
             </div>
+        </main>
        </div>
     );
 }
 
 export function Blogdetail({blogContent,suggestion}){
     return(
-    <div className="blog-content">
+        <div className="blog-content">
         <div className='blog-header'>
             <Link href={`/${blogContent.contentType}/category/${blogContent.category}`} >
             <div className="blog-tag pointer">
