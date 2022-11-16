@@ -3,7 +3,7 @@ var urlencode = require('urlencode')
 module.exports = {
     siteUrl: process.env.AUTH0_BASE_URL || 'https://researcherp.com',
     generateRobotsTxt: true, // (optional),
-    exclude: ['/admin/*'],
+    exclude: ['/admin/*','/admin','/login'],
     transform: async (config, path) => {
         return {
             loc: urlencode(path.substring(1)), // => this will be exported as http(s)://<config.siteUrl>/<path>
