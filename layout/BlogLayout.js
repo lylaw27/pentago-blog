@@ -30,7 +30,7 @@ export default function BlogLayout(props){
                 <meta name="publisher" content="ReseacherP"/>
                 <meta property="og:url" content={currentURL}/>
                 <meta property="og:title" content={blogContent.title}/>
-                <meta property="og:description" content={blogContent.article}/>
+                <meta property="og:description" content={blogContent.subtitle}/>
                 <meta property="og:image" content={blogContent.imagefile[0]}/>
                 <meta charSet="UTF-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
@@ -42,9 +42,9 @@ export default function BlogLayout(props){
             <section className="blog-body">
                 <div className="blog-share">
                     <i className="fas fa-share-alt"/>
-                    <a href={`http://www.facebook.com/share.php?u=${currentURL}`}><i className="fab fa-facebook-f"/></a>
-                    <a href={`https://api.whatsapp.com/send?text=${currentURL}`}><i className="fab fa-whatsapp"/></a>
-                    <a href={`mailto:?subject=${blogContent.title}&body=${currentURL}`}><i className="far fa-envelope"/></a>
+                    <Link href={`https://www.facebook.com/share.php?u=${currentURL}`}><i className="fab fa-facebook-f"/></Link>
+                    <Link href={`https://api.whatsapp.com/send?text=${currentURL}`}><i className="fab fa-whatsapp"/></Link>
+                    <Link href={`mailto:?subject=${blogContent.title}&body=${currentURL}`}><i className="far fa-envelope"/></Link>
                 </div>
                 <Blogdetail {...props}/>
                 <BlogSidebar sidebar={sidebar} contentType={blogContent.contentType} scollFunc={scrollToSub}/>
