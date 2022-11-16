@@ -25,8 +25,8 @@ export default function BlogLayout(props){
     return (
         <div>
             <Head>
+                <link rel="icon" href="/favicon.ico"/>
                 <title>{blogContent.title}</title>
-                <meta name="description" content={blogContent.subtitle}/>
                 <meta name="publisher" content="ReseacherP"/>
                 <meta property="og:url" content={currentURL}/>
                 <meta property="og:title" content={blogContent.title}/>
@@ -34,7 +34,6 @@ export default function BlogLayout(props){
                 <meta property="og:image" content={blogContent.imagefile[0]}/>
                 <meta charSet="UTF-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-                <link rel="icon" href="/favicon.ico"/>
             </Head>
             <body>
             <Header/>

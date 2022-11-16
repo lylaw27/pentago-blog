@@ -16,11 +16,11 @@ export default function Home({blogs, sidebar, pagination, metatag}){
     return(
     <div>
         <Head>
+            <link rel="icon" href="/favicon.ico"/>
             <title>{metatag.title}</title>
             <meta name="description" content={metatag.description}/>
             <meta charSet="UTF-8"></meta>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-            <link rel="icon" href="/favicon.ico"/>
         </Head>
         <body>
         <Header/>
@@ -54,9 +54,9 @@ function BlogHeader({metatag}){
   }
 return (
       <div className="blog-path-wrapper">
-          <Link href={`/${metatag.contentType}`}><h1 className="blog-path pointer">{metatag.contentType}</h1></Link>
+          <Link href={`/${metatag.contentType}`}><h2 className="blog-path pointer">{metatag.contentType}</h2></Link>
           <span className="blog-path-divider">{divider}</span>
-          <Link href={`/${metatag.contentType}/category/${metatag.category}`}><h1 className="blog-path pointer">{metatag.category}</h1></Link>
+          <Link href={`/${metatag.contentType}/category/${metatag.category}`}><h2 className="blog-path pointer">{metatag.category}</h2></Link>
       </div>
     )
 }
