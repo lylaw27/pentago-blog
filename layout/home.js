@@ -22,7 +22,7 @@ export default function Home({blogs, sidebar, pagination, metatag}){
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             <link rel="icon" href="/favicon.ico"/>
         </Head>
-        <main>
+        <body>
         <Header/>
           <div className="overlap">
           <div className="background">
@@ -42,7 +42,7 @@ export default function Home({blogs, sidebar, pagination, metatag}){
           </div>
         <Footer/>
         </div>
-        </main>
+        </body>
     </div>
   )
 }

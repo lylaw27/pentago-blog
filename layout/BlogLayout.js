@@ -36,7 +36,7 @@ export default function BlogLayout(props){
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
-            <main>
+            <body>
             <Header/>
             <div className="overlap">
             <section className="blog-body">
@@ -64,7 +64,7 @@ export default function BlogLayout(props){
             </div>
             <Footer/>
             </div>
-        </main>
+        </body>
        </div>
     );
 }
