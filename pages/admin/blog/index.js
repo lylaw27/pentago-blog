@@ -36,7 +36,7 @@ const AdminBlogListings = ({blogs, pagination}) => {
                 article: "",
                 timestamp: "",
                 videoUrl: "",
-                category: "樓價",
+                category: "樓市分析",
                 contentType: "英國懶人包",
                 uploadDate : "",
                 imagefile: []

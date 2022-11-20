@@ -9,7 +9,7 @@ export  const BlogProvider = (props) => {
         article: "",
         timestamp: "",
         videoUrl: "",
-        category: "樓價",
+        category: "樓市分析",
         contentType: "英國懶人包",
         uploadDate : "",
         image_id: [],

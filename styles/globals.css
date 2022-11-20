@@ -5,13 +5,17 @@
   src: url('/fonts/jf-openhuninn-1.1.ttf') format('truetype');
 }
 @font-face {
-  font-family: 'PMingLiU';
-  src: url('/fonts/PMingLiU.ttf') format('truetype');
+  font-family: '新細明體';
+  src: url('/fonts/新細明體.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'JingNanMaiYuanTi-2';
+  src: url("/fonts/JingNanMaiYuanTi-2.otf") format("opentype");
 }
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Openhuninn','PMingLiU', 'Montserrat', 'Noto Sans TC', sans-serif;
+  font-family: 'Openhuninn','新細明體', 'Montserrat', 'Noto Sans TC', sans-serif;
   font-weight: 300;
 }
 header {

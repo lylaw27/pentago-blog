@@ -21,9 +21,6 @@ export default function Header(){
             </div>
           </Link>
           <nav className='nav-pc'>
-            <Link href="/英國懶人包">
-                <span className='pointer'>英國懶人包</span>
-            </Link>
             <Link href="/民間博客">
                 <span className='pointer'>民間博客</span>
             </Link>
@@ -33,6 +30,9 @@ export default function Header(){
             <Link href="/英國物業小知識">
                 <span className='pointer'>英國物業小知識</span>
             </Link> 
+            <Link href="/英國懶人包">
+                <span className='pointer'>英國懶人包</span>
+            </Link>
             <Link href="/Youtube影片">
                 <span className='pointer'>Youtube影片</span>
             </Link>

@@ -1,10 +1,9 @@
 .background {
-  background-image: url("../images/bgimg.jpg");
-  background-size: cover;
-  background-position: 50% 63%;
+  background-image: url("../images/bgimg.webp");
+  background-size: contain;
   color: white;
   width: 100%;
-  height: 30vw;
+  height: 25vw;
 }
 .background .title {
   display: flex;

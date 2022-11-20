@@ -5,7 +5,7 @@ export default function BlogSidebar({sidebar,scollFunc,contentType}){
     return(
     <div className="blog-sidebar">
         <div className="blog-sidebox">
-            <h1>關於我們</h1>
+            <h1>關於阿P</h1>
             <div className='blog-sidebar-img'>
                 <Image alt="" src={require('../images/profilepic.png')}/>
             </div>
@@ -40,17 +40,11 @@ export default function BlogSidebar({sidebar,scollFunc,contentType}){
         </div>
         <div className="blog-sidebox blog-sidebox-post">
             <h1>分類</h1>
-            <Link href={`/${contentType}/category/樓價`}>樓市走勢</Link>
-            <Link href={`/${contentType}/category/專題`}>經濟發展</Link>
-            <Link href={`/${contentType}/category/專題`}>專題</Link>
+            <Link href={`/${contentType}/category/樓市分析`}>樓市分析</Link>
+            <Link href={`/${contentType}/category/學校教育`}>學校教育</Link>
+            <Link href={`/${contentType}/category/市場熱話`}>市場熱話</Link>
             <Link href={`/${contentType}/category/歷史文化`}>歷史文化</Link>
-            <Link href={`/${contentType}/category/就業`}>就業</Link>
-            <Link href={`/${contentType}/category/就業`}>通勤交通</Link>
-            <Link href={`/${contentType}/category/就業`}>天氣地理</Link>
-            <Link href={`/${contentType}/category/教育`}>學校教育</Link>
-            <Link href={`/${contentType}/category/教育`}>地區分析</Link>
-            <Link href={`/${contentType}/category/教育`}>市場熱話</Link>
-            <Link href={`/${contentType}/category/教育`}>數據比較</Link>
+            <Link href={`/${contentType}/category/就業數據`}>就業數據</Link>
         </div>
     </div>
   )

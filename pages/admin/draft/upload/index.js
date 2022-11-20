@@ -48,7 +48,7 @@ export default function CreateBlog(){
             article: "",
             timestamp: "",
             videoUrl: "",
-            category: "樓價",
+            category: "樓市分析",
             contentType: "英國懶人包",
             uploadDate : "",
             imagefile: []
@@ -125,11 +125,11 @@ export default function CreateBlog(){
                         <input className="input-border" type="text" name="videoUrl" value={blogContent.videoUrl} onChange={ChangeHandler}/><br/>
                         <label htmlFor="category">Category</label>
                         <select className="input-border" name="category" onChange={ChangeHandler} value={blogContent.category}>
-                            <option value="樓價">樓價</option>
-                            <option value="專題">專題</option>
+                            <option value="樓市分析">樓市分析</option>
+                            <option value="市場熱話">市場熱話</option>
                             <option value="歷史文化">歷史文化</option>
-                            <option value="就業">就業</option>
-                            <option value="教育">教育</option>
+                            <option value="就業數據">就業數據</option>
+                            <option value="學校教育">學校教育</option>
                         </select>
                         <label htmlFor="article">Article</label>
                         <div className="input-border textarea">
@@ -160,7 +160,7 @@ export default function CreateBlog(){
                                 "Openhuninn",
                                 "Noto Sans TC",
                                 "Montserrat",
-                                "PMingLiU",
+                                "新細明體",
                                 "Arial",
                                 "Times New Roman"
                             ]

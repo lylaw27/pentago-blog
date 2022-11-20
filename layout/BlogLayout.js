@@ -23,7 +23,7 @@ export default function BlogLayout(props){
     }
     const currentURL = `https://researcherp.com/content/${blogContent.url}`
     return (
-        <div>
+        <>
             <Head>
                 <link rel="icon" href="/favicon.ico"/>
                 <title>{blogContent.title}</title>
@@ -35,7 +35,7 @@ export default function BlogLayout(props){
                 <meta charSet="UTF-8"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
             </Head>
-            <body>
+            <div>
             <Header/>
             <div className="overlap">
             <section className="blog-body">
@@ -63,8 +63,8 @@ export default function BlogLayout(props){
             </div>
             <Footer/>
             </div>
-        </body>
-       </div>
+        </div>
+       </>
     );
 }
 

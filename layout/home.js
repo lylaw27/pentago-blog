@@ -14,7 +14,7 @@ export default function Home({blogs, sidebar, pagination, metatag}){
     scrollRef.current.scrollIntoView({behavior: 'smooth'});
   }
     return(
-    <div>
+    <>
         <Head>
             <link rel="icon" href="/favicon.ico"/>
             <title>{metatag.title}</title>
@@ -22,28 +22,28 @@ export default function Home({blogs, sidebar, pagination, metatag}){
             <meta charSet="UTF-8"></meta>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
         </Head>
-        <body>
+        <div>
         <Header/>
           <div className="overlap">
           <div className="background">
-            <div className="title">
+            {/* <div className="title">
                 <h1>最強英國地區全面分析<br/>英國民間分析員阿P</h1>
-            </div>
+            </div> */}
           </div>
           <section className="blog-section">
             <div className="blog-body">
               <BlogList blogs={blogs} metatag={metatag}/>
               <BlogSidebar scollFunc={scrollToSub} sidebar={sidebar} contentType={pagination.contentType}/>
             </div>
-              <BlogPagination pagination={pagination}/>
+              {(pagination.contentType === 'home') ? null :<BlogPagination pagination={pagination}/> }
           </section>
           <div ref={scrollRef}>
             <BlogSubscription/>
           </div>
         <Footer/>
         </div>
-        </body>
-    </div>
+        </div>
+    </>
   )
 }
 
@@ -97,10 +97,6 @@ function BlogList({blogs,metatag}){
             <p className='blog-list-subtitle'>
             {blogs.subtitle}
             </p>
-{/*             
-              <div className="blog-read">
-                閲讀更多
-              </div> */}
           </div>
         </div>)}
         </div>

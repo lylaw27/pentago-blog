@@ -8,16 +8,16 @@ export default function Layout(props){
 export async function getStaticProps(){
     const blogs = await Dbconnect('blogs')
     const recordPerPage = 8;
-    const blogList = await blogs.find({contentType: '英國懶人包'})
-                              .sort({timestamp: -1})
-                              .limit(recordPerPage)
-                              .toArray();
+    const contentType = ['民間博客','Patreon文章預覽','英國物業小知識','英國懶人包','Youtube影片']
+    let blogList = []
+    for(const type of contentType){
+      await blogs.find({contentType: type}).sort({timestamp: -1}).limit(1).forEach(result=>{blogList.push(result)})  
+    }
     const recentBlog = await blogs.find()
                                   .sort({timestamp: -1})
                                   .limit(recordPerPage)
                                   .toArray();
     const blogCount = await blogs.countDocuments()
-    // if(!result){res.send("notfound")}
     return{
         props: {
           blogs: blogList.map(data=>({
@@ -35,7 +35,7 @@ export async function getStaticProps(){
                   })),
           pagination: {
             count: blogCount.toString(),
-            contentType: '英國懶人包'
+            contentType: 'home'
           },
           metatag: {
             title: '英國民間分析員阿P - 最強英國地區全面分析',
