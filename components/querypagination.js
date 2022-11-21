@@ -2,14 +2,11 @@ import Link from 'next/link';
 import{useRouter} from 'next/router';
 
 export default function QueryPagination({pagination}){
-    let query = useRouter().query;
+    const router = useRouter()
+    let currentPage = pagination.page;
     let currentPath = useRouter().pathname;
-    let currentPage = parseInt(query.page);
-    if(isNaN(currentPage)){
-        currentPage = 1;
-    }
     let pageDisplay = []
-    let maxPage = (Math.ceil(parseInt(pagination)/8))
+    let maxPage = (Math.ceil(parseInt(pagination.blogCount)/20))
     let pagearray = Array.from({length: maxPage}, (_, i) => i + 1)
     if(maxPage >= 5){
         if(currentPage === 1 || currentPage === 2){
@@ -27,19 +24,19 @@ export default function QueryPagination({pagination}){
     }
     return(
         <div className='pageBar'>
-            <Link href={{ pathname: currentPath, query: { page: String(currentPage-1) } }}>
+            <Link href={{ pathname: currentPath, query: { page: String(currentPage-1), ...pagination.query} }}>
                 <div className={(currentPage === 1) ? 'pageDisabled':'pageNumber '}>
                     <i className="fas fa-angle-left"/>
                 </div>
             </Link>
             {pageDisplay.map((number,i) => 
-            <Link key={i} href={{ pathname: currentPath, query: { page: String(number) } }}>
+            <Link key={i} href={{ pathname: currentPath, query: { page: String(number), ...pagination.query} }}>
             <div   className={(currentPage === number) ? 'pageCurrent':'pageNumber'}>
                 {number}
             </div>
             </Link>
             )}
-            <Link href={{ pathname: currentPath, query: { page: String(currentPage-1)} }}>
+            <Link href={{ pathname: currentPath, query: { page: String(currentPage-1), ...pagination.query}}}>
                 <div className={(currentPage === maxPage) ? 'pageDisabled':'pageNumber'}>
                     <i className="fas fa-angle-right"/>
                 </div>

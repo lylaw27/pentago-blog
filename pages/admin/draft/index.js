@@ -1,5 +1,5 @@
 import Link from 'next/link.js';
-import Image from 'next/image.js';
+import { useState } from 'react';
 import Script from 'next/script.js';
 import Head from 'next/head.js';
 import { useRouter } from 'next/router'
@@ -12,7 +12,7 @@ import Dbconnect from '../../../components/db.js';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 
-const AdminBlogListings = ({blogs, pagination}) => {
+const AdminBlogListings = ({blogs, pagination, changeLoading}) => {
     let router = useRouter();
     const {useBlogContent, useArticle, useBlogImage} =useContext(BlogContext);
     const [blogContent,setBlogContent] = useBlogContent;
@@ -21,7 +21,7 @@ const AdminBlogListings = ({blogs, pagination}) => {
     const deleteBlog = async (_id,image_id) =>{
         let confirmDelete = window.confirm('Are you sure you want to delete this blog?')
         if(confirmDelete){
-            await axios.post('/api/blog/blogs/delete',{_id: _id,image_id: image_id})
+            await axios.post('/api/blog/draft/delete',{_id: _id,image_id: image_id})
             alert('Deleted!');
             router.reload();
         }
@@ -46,37 +46,43 @@ const AdminBlogListings = ({blogs, pagination}) => {
             },[]) // eslint-disable-line react-hooks/exhaustive-deps
         return(
         <div>
-            <Link href='/admin/draft/upload'>
+            <Link href='/admin/blog/upload'>
                 <div className="listed addBlog pointer">
-                    <h1><i className="fas fa-upload"></i>Add New Blog</h1>
+                    <h1><i className="fas fa-upload"></i>新增草稿</h1>
                 </div>
             </Link>
-            {blogs.map((blog,i) =>
-            <div className="listed" key={i}>
-                <div className='listed-image'>
-                    <Image alt="" src={blog.imagefile} layout='fill'/> 
+            <div className='listed'>
+                <div className="listed-content" style={{ backgroundColor:'#e9e9e9',fontSize: '17px', gridTemplateRows: '50px',color: 'black'}}>
+                    <div style={{gridColumn: '1/2',justifySelf: 'center'}}>標題</div>
+                    <div style={{gridColumn: '2/3', justifySelf: 'center'}}>上載日期</div>
+                    <div style={{gridColumn: '3/4', justifySelf: 'center'}}>文章類型</div>
+                    <div style={{gridColumn: '4/5', justifySelf: 'center'}}>類別</div>
                 </div>
-                <div className="list-content">
-                    <h2>{blog.title}</h2>
-                    <h4 className='adminlist-mid'>
-                        <span><i className="fas fa-calendar-day"></i>{blog.uploadDate}</span>
-                    </h4>
-                </div>
-                <div className="adminlist-right">
-                    <Link href={`/admin/draft/upload/${blog._id}`}>
-                        <div className='buttonLink pointer'>
-                           Edit<i className="fas fa-edit"></i> 
-                        </div>
-                    </Link>
-                        <div onClick={() => {deleteBlog(blog._id,blog.image_id)}} className='buttonLink pointer'>Delete<i className="fas fa-trash"></i></div>
-                </div>
-            </div>)}
+                {blogs.map((blog,i) => 
+                <div className="listed-content" key={i} style={{ backgroundColor: i%2===0 ? '#fcfcfc':'#f0f0f0'}}>
+                    <Link href={`/admin/draft/upload/${blog._id}`}><span style={{gridColumn: '1/2'}}>{blog.title}</span></Link>
+                    <Link href={`/admin/draft?uploadDate=${blog.uploadDate}`}><span style={{gridColumn: '2/3', justifySelf: 'center'}} >{blog.uploadDate}</span></Link>
+                    <Link href={`/admin/draft?contentType=${blog.contentType}`}><span style={{gridColumn: '3/4', justifySelf: 'center'}}>{blog.contentType}</span></Link>
+                    <Link href={`/admin/draft?category=${blog.category}`}><span style={{gridColumn: '4/5', justifySelf: 'center'}}>{blog.category}</span></Link>
+                    <div style={{gridColumn: '5/6', justifySelf: 'center'}} className="listed-action">
+                        <Link href={`/admin/draft/upload/${blog._id}`}><div className=' pointer'><i className="fas fa-edit"></i> </div></Link>
+                        <div onClick={() => {deleteBlog(blog._id,blog.image_id)}} className=' pointer'><i className="fas fa-trash"></i></div>
+                    </div>
+                </div>)}
+            </div>
             <QueryPagination pagination={pagination}/>
         </div>
     )
 }
 
 export default function AdminBlog(props){
+    const [loading, setLoading] = useState({
+        alertBox: 'none',
+        disableDiv: ''
+    })
+    const changeLoading = () =>{
+        setLoading({ alertBox: 'flex', disableDiv: 'disableDiv'})
+    }
     return (
         <div>
             <Head>
@@ -86,12 +92,13 @@ export default function AdminBlog(props){
             <Script src="https://kit.fontawesome.com/dbb3bd5296.js" crossorigin="anonymous"/>
             <Toolbar/>
             <div className="overlap">
-                <div className="admin-body">
+            <div className="loadingBox" style={{display: loading.alertBox}}>Please wait...</div>
+                <div className={`admin-body ${loading.disableDiv}`}>
                     <section className="blog-filter">
                         <input htmlFor="title" placeholder="Search title..." className="admin-blog-search"/>
                     </section>
                     <section className="listings">
-                        <AdminBlogListings {...props}/>              
+                        <AdminBlogListings {...props} changeLoading={changeLoading}/>              
                     </section>             
                 </div>
             </div>
@@ -102,26 +109,34 @@ export default function AdminBlog(props){
 export const getServerSideProps = withPageAuthRequired({
     returnTo: '/admin',
     async getServerSideProps(context) {
-    let page = context.query.page
-    if(!page) {page = 1};
+    let adminQuery = context.query
+    let page = parseInt(adminQuery.page);
+    if(!adminQuery.page) {page = 1};
+    delete adminQuery.page;
     const blogs = await Dbconnect('draft')
-    let recordPerPage = 8;
-    const blogList = await blogs.find()
-                              .sort({timestamp: -1})
+    let recordPerPage = 20;
+    const blogList = await blogs.find(adminQuery)
+                              .sort({pinned: -1,timestamp: -1})
                               .skip((page-1) * recordPerPage)
                               .limit(recordPerPage)
                               .toArray();
-    const blogCount = await blogs.countDocuments()
+    const blogCount = await blogs.countDocuments(adminQuery)
     return{
         props: {
           blogs: blogList.map(data=>({
                     _id: data._id.toString(),
                     title: data.title,
-                    imagefile: data.imagefile[0],
+                    category: data.category,
+                    url: data.url,
+                    contentType: data.contentType,
                     image_id: data.image_id,
                     uploadDate: data.uploadDate,
                   })),
-          pagination: blogCount.toString(),
+          pagination: {
+                    blogCount: blogCount.toString(),
+                    page: page,
+                    query: adminQuery
+            }
         }
         }
     }})

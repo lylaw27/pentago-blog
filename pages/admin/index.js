@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Script from 'next/script';
 import Toolbar from '../../components/toolbar';
 import Dbconnect from '../../components/db';
 import { useUser } from '@auth0/nextjs-auth0';
@@ -15,7 +14,6 @@ export default function AdminDashboard({blogs,properties}){
             <title>PentaGo! - 後台管理</title>
             <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Script src="https://kit.fontawesome.com/dbb3bd5296.js" crossorigin="anonymous"/>
             <Toolbar/>
             <div className='admin-body'>
                 <div className='db-title'>Dashboard

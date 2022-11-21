@@ -176,13 +176,19 @@ export default function EditBlog({blogEdit}){
                             ],
                             formats: ["p", "div",'blockquote', 'pre', "h1", "h2", "h3", "h4", "h5", "h6"],
                             font: [
+                                "SourceHanSansOLD-Light-2",
+                                "SourceHanSansSC-Heavy-2",
+                                "SweiFistLegCJKtc-Black-2",
+                                "GenYoGothicTW-H-01",
                                 "Openhuninn",
+                                "JingNanMaiYuanTi-2",
                                 "Noto Sans TC",
                                 "Montserrat",
                                 "新細明體",
                                 "Arial",
                                 "Times New Roman"
-                            ]
+                            ],
+                            defaultStyle: "font-family: SourceHanSansOLD-Light-2; font-size: 16px;"
                             }}/>
                         </div>
                         <div className='submit-wrapper'>

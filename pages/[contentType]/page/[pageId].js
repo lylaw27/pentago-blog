@@ -25,7 +25,7 @@ export async function getStaticProps(context){
     const recordPerPage = 8;
     if(!page){page = 1}
     const blogList = await blogs.find({contentType: contentType})
-                                .sort({timestamp: -1})
+                                .sort({pinned: -1,timestamp: -1})
                                 .skip((page-1) * recordPerPage)
                                 .limit(recordPerPage)
                                 .toArray();

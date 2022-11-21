@@ -157,6 +157,10 @@ export default function CreateBlog(){
                             ],
                             formats: ["p", "div",'blockquote', 'pre', "h1", "h2", "h3", "h4", "h5", "h6"],
                             font: [
+                                "SourceHanSansOLD-Light-2",
+                                "SourceHanSansSC-Heavy-2",
+                                "SweiFistLegCJKtc-Black-2",
+                                "GenYoGothicTW-H-01",
                                 "Openhuninn",
                                 "JingNanMaiYuanTi-2",
                                 "Noto Sans TC",
@@ -165,7 +169,7 @@ export default function CreateBlog(){
                                 "Arial",
                                 "Times New Roman"
                             ],
-                            defaultStyle: "font-family: Openhuninn; font-size: 16px;"
+                            defaultStyle: "font-family: SourceHanSansOLD-Light-2; font-size: 16px;"
                             }}/>
                         </div>
                         <div className='submit-wrapper'>

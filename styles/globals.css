@@ -6,11 +6,27 @@
 }
 @font-face {
   font-family: '新細明體';
-  src: url('/fonts/新細明體.ttf') format('truetype');
+  src: url('/fonts/PMingLiU.ttf') format('truetype');
 }
 @font-face {
   font-family: 'JingNanMaiYuanTi-2';
   src: url("/fonts/JingNanMaiYuanTi-2.otf") format("opentype");
+}
+@font-face {
+  font-family: 'SourceHanSansOLD-Light-2';
+  src: url("/fonts/SourceHanSansOLD-Light-2.otf") format("opentype");
+}
+@font-face {
+  font-family: 'SourceHanSansSC-Heavy-2';
+  src: url("/fonts/SourceHanSansSC-Heavy-2.otf") format("opentype");
+}
+@font-face {
+  font-family: 'SweiFistLegCJKtc-Black-2';
+  src: url("/fonts/SweiFistLegCJKtc-Black-2.ttf") format("truetype");
+}
+@font-face {
+  font-family: 'GenYoGothicTW-H-01';
+  src: url("/fonts/GenYoGothicTW-H-01.ttf") format("truetype");
 }
 body {
   margin: 0;
