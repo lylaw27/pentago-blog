@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function BlogSidebar({sidebar,scollFunc,contentType}){
+export default function BlogSidebar({sidebar,scollFunc,contentType,display}){
     return(
-    <div className="blog-sidebar">
+    <div className={display}>
         <div className="blog-sidebox">
             <h1>關於阿P</h1>
             <div className='blog-sidebar-img'>

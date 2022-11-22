@@ -33,9 +33,10 @@ export default function Home({blogs, sidebar, pagination, metatag}){
           <section className="blog-section">
             <div className="blog-body">
               <BlogList blogs={blogs} metatag={metatag}/>
-              <BlogSidebar scollFunc={scrollToSub} sidebar={sidebar} contentType={pagination.contentType}/>
+              <BlogSidebar scollFunc={scrollToSub} display={'blog-sidebar'} sidebar={sidebar} contentType={pagination.contentType}/>
             </div>
               {(pagination.contentType === 'home') ? null :<BlogPagination pagination={pagination}/> }
+            <BlogSidebar scollFunc={scrollToSub} display={'blog-sidebar-m'} sidebar={sidebar} contentType={pagination.contentType}/>
           </section>
           <div ref={scrollRef}>
             <BlogSubscription/>
@@ -85,12 +86,12 @@ function BlogList({blogs,metatag}){
             {blogs.uploadDate}
             </div>
             <Link href={`/${blogs.contentType}/category/${blogs.category}`} >
-            <div className="blog-tag pointer">
+            <div className="blog-tag txt-pointer">
             {blogs.category}
             </div>
             </Link>
             <Link href={`/content/${blogs.url}`} >
-            <h1 className='blog-list-title pointer'>
+            <h1 className='blog-list-title txt-pointer'>
             {blogs.title}
             </h1>
             </Link>

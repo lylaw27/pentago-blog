@@ -46,8 +46,9 @@ export default function BlogLayout(props){
                     <Link href={`mailto:?subject=${blogContent.title}&body=${currentURL}`}><i className="far fa-envelope"/></Link>
                 </div>
                 <Blogdetail {...props}/>
-                <BlogSidebar sidebar={sidebar} contentType={blogContent.contentType} scollFunc={scrollToSub}/>
+                <BlogSidebar display={'blog-sidebar'} sidebar={sidebar} contentType={blogContent.contentType} scollFunc={scrollToSub}/>
             </section>
+                <BlogSidebar display={'blog-sidebar-m'} sidebar={sidebar} contentType={blogContent.contentType}/>
             <section className="mobile-share">
                 <div className="share-wrapper">
                 <h3>分享文章</h3>

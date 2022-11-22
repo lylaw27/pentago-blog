@@ -4,6 +4,9 @@
     width: 25%;
     max-width: 300px;
 }
+.blog-sidebar-m{
+    display: none;
+}
 .blog-sidebar-img{
     margin: 35px 0;
 }
@@ -71,8 +74,28 @@
 .icon-wrapper i:hover{
     color: #BE2C2D;
 }
-@media only screen and (max-width: 1025px) {
+@media only screen and (max-width: 1090px) {
     .blog-sidebar{
         display: none;
+    }
+    .blog-sidebar-m{
+        position: relative;
+        top:50px;
+        background-color: #f7f7f7;
+        display: block;
+        padding: 30px 0;
+    }
+    .blog-sidebar{
+        width: 100%;
+        max-width: 350px;
+    }
+    .blog-sidebox{
+        display: none;
+        width: 90%;
+        margin: auto;
+    }
+    .blog-sidebox-post{
+        width: 80%;
+        display: block;
     }
 }

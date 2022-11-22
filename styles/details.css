@@ -92,6 +92,7 @@
     .suggestion{
         flex-direction: column;
         align-items: center;
+        margin: 0;
     }
     .suggest-list{
         margin: 0;
@@ -99,6 +100,7 @@
     .mobile-share{
         display: block;
         z-index: 10;
+        margin-top: 40px;
         position: sticky;
         bottom: 0;
         background-color: #BE2C2D;

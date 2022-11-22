@@ -11,20 +11,20 @@ export default function Toolbar(){
             </Link>
             <Link href='/admin' >
                 <div className="menu-list pointer">
-                    <i className="fa-brands fa-flipboard"/>DashBoard<i className="fa-solid fa-angle-right"/>
+                    <i className="fa-brands fa-flipboard"/>主頁<i className="fa-solid fa-angle-right"/>
                 </div>
             </Link>
             <Link href='/admin/blog'>
                 <div className="menu-list pointer">
-                    <i className="fa-solid fa-file-pen"/>Blogs<i className="fa-solid fa-angle-right"/>
+                    <i className="fa-solid fa-file-pen"/>文章<i className="fa-solid fa-angle-right"/>
                 </div>
             </Link>
             <Link href='/admin/draft'>
                 <div className="menu-list pointer">
-                    <i className="fa-solid fa-paste"/>Draft<i className="fa-solid fa-angle-right"/>
+                    <i className="fa-solid fa-paste"/>草稿<i className="fa-solid fa-angle-right"/>
                 </div>
             </Link>
-            <Link href='/admin'>
+            {/* <Link href='/admin'>
                 <div className="menu-list pointer">
                     <i className="fa-solid fa-house-chimney"/>Properties<i className="fa-solid fa-angle-right"/>
                 </div>
@@ -33,7 +33,7 @@ export default function Toolbar(){
                 <div className="menu-list pointer">
                     <i className="fa-solid fa-gear"/>Settings<i className="fa-solid fa-angle-right"/>
                 </div>
-            </Link>
+            </Link> */}
             <div className="menu-user">
                 <i className="fa-solid fa-user"/>Ken Au
                 <Link href="/api/auth/logout">

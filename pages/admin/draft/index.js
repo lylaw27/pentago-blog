@@ -1,11 +1,10 @@
 import Link from 'next/link.js';
-import { useState } from 'react';
 import Script from 'next/script.js';
 import Head from 'next/head.js';
 import { useRouter } from 'next/router'
 import Toolbar from '../../../components/toolbar.js';
 import axios from 'axios';
-import { useEffect,useContext } from 'react';
+import { useEffect,useContext,useState } from 'react';
 import BlogContext from '../../../context/preview';
 import QueryPagination from '../../../components/querypagination.js';
 import Dbconnect from '../../../components/db.js';
@@ -18,6 +17,7 @@ const AdminBlogListings = ({blogs, pagination, changeLoading}) => {
     const [blogContent,setBlogContent] = useBlogContent;
     const [blogImage,setBlogImage] = useBlogImage;
     const [article,setArticle] = useArticle;
+    const [search,setSearch] = useState('');
     const deleteBlog = async (_id,image_id) =>{
         let confirmDelete = window.confirm('Are you sure you want to delete this blog?')
         if(confirmDelete){
@@ -28,6 +28,10 @@ const AdminBlogListings = ({blogs, pagination, changeLoading}) => {
         else{
             window.close();
         }
+    }
+    const ChangeHandler = (e) =>{
+        let value = e.target.value;
+        setSearch(value);
     }
     useEffect(()=>{
                 setBlogContent({
@@ -51,6 +55,10 @@ const AdminBlogListings = ({blogs, pagination, changeLoading}) => {
                     <h1><i className="fas fa-upload"></i>新增草稿</h1>
                 </div>
             </Link>
+            <section className="blog-filter">
+                <input htmlFor="title" onChange={ChangeHandler} value={search} placeholder="搜尋標題..." className="admin-blog-search"/>
+                <Link href={`/admin/draft?title=${search}`}><button className='admin-search-button pointer'><i className="fa fa-search"></i></button></Link>
+            </section>
             <div className='listed'>
                 <div className="listed-content" style={{ backgroundColor:'#e9e9e9',fontSize: '17px', gridTemplateRows: '50px',color: 'black'}}>
                     <div style={{gridColumn: '1/2',justifySelf: 'center'}}>標題</div>
@@ -94,9 +102,6 @@ export default function AdminBlog(props){
             <div className="overlap">
             <div className="loadingBox" style={{display: loading.alertBox}}>Please wait...</div>
                 <div className={`admin-body ${loading.disableDiv}`}>
-                    <section className="blog-filter">
-                        <input htmlFor="title" placeholder="Search title..." className="admin-blog-search"/>
-                    </section>
                     <section className="listings">
                         <AdminBlogListings {...props} changeLoading={changeLoading}/>              
                     </section>             
@@ -113,6 +118,7 @@ export const getServerSideProps = withPageAuthRequired({
     let page = parseInt(adminQuery.page);
     if(!adminQuery.page) {page = 1};
     delete adminQuery.page;
+    if(context.query.title){adminQuery = {title: {$regex : context.query.title}}}else{delete adminQuery.title;}
     const blogs = await Dbconnect('draft')
     let recordPerPage = 20;
     const blogList = await blogs.find(adminQuery)

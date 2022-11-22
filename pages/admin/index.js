@@ -3,8 +3,9 @@ import Toolbar from '../../components/toolbar';
 import Dbconnect from '../../components/db';
 import { useUser } from '@auth0/nextjs-auth0';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+import Link from 'next/link';
 
-export default function AdminDashboard({blogs,properties}){
+export default function AdminDashboard(props){
     const { user, error, isLoading } = useUser();
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>{error.message}</div>;
@@ -20,26 +21,41 @@ export default function AdminDashboard({blogs,properties}){
                 <hr/>
                 </div>
                 <div className='db-content'>
-                    <div className='db-stats'>
+                    <Link href={'/admin/blog?contentType=民間博客'}>
+                    <div className='db-stats pointer'>
                         <i className="fa-solid fa-file-pen"></i>
-                        <div className="db-count">{blogs}</div>
-                        <div>Blogs</div>
+                        <div className="db-count">{props.blog}</div>
+                        <div>民間博客</div>
                     </div>
-                    <div className='db-stats'>
+                    </Link>
+                    <Link href={'/admin/blog?contentType=英國懶人包'}>
+                    <div className='db-stats pointer'>
+                        <i className="fa-brands fa-instagram"/>
+                        <div className="db-count">{props.ig}</div>
+                        <div>英國懶人包</div>
+                    </div>
+                    </Link>
+                    <Link href={'/admin/blog?contentType=Youtube影片'}>
+                    <div className='db-stats pointer'>
+                        <i className="fa-brands fa-youtube"/>
+                        <div className="db-count">{props.youtube}</div>
+                        <div>Youtube影片</div>
+                    </div>
+                    </Link>
+                    <Link href={'/admin/blog?contentType=Patreon文章'}>
+                    <div className='db-stats pointer'>
+                        <i className="fa-brands fa-patreon"/>
+                        <div className="db-count">{props.patreon}</div>
+                        <div>Patreon文章</div>
+                    </div>
+                    </Link>
+                    <Link href={'/admin/blog?contentType=英國物業小知識'}>
+                    <div className='db-stats pointer'>
                         <i className="fa-solid fa-house-chimney"></i>
-                        <div className="db-count">{properties}</div>  
-                        <div>Properties</div>
+                        <div className="db-count">{props.property}</div>  
+                        <div>英國物業小知識</div>
                     </div>
-                    <div className='db-stats'>
-                        <i className="fa-solid fa-file-contract"/>
-                        <div className="db-count">1</div>
-                        <div>Subcriptions</div>
-                    </div>
-                    <div className='db-stats'>
-                        <i className="fa-solid fa-chart-line"/>
-                        <div className="db-count">1</div>
-                        <div>Monthly Views</div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>
@@ -49,13 +65,18 @@ export const getServerSideProps = withPageAuthRequired({
     returnTo: '/admin',
     async getServerSideProps() {
         const blogs = await Dbconnect('blogs');
-        const properties = await Dbconnect('properties');
-        const blogCount = await blogs.countDocuments();
-        const propertyCount = await properties.countDocuments();
+        const blogCount = await blogs.countDocuments({contentType: '民間博客'});
+        const propertyCount = await blogs.countDocuments({contentType: '英國物業小知識'});
+        const igCount = await blogs.countDocuments({contentType: '英國懶人包'});
+        const youtubeCount = await blogs.countDocuments({contentType: 'Youtube影片'});
+        const patreonCount = await blogs.countDocuments({contentType: 'Patreon文章預覽'})
         return { 
             props:{
-                        blogs: blogCount.toString(),
-                        properties: propertyCount.toString()
+                        blog: blogCount.toString(),
+                        property: propertyCount.toString(),
+                        ig: igCount.toString(),
+                        youtube: youtubeCount.toString(),
+                        patreon: patreonCount.toString(),
                     }
                 }
             }})

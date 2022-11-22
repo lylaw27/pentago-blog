@@ -44,7 +44,7 @@ header {
   box-sizing: border-box;
 }
 .header-box {
-  width: 80%;
+  width: 90%;
   align-items: center;
   height: 100%;
   margin: auto;
@@ -73,12 +73,11 @@ a {
 }
 .pointer:hover{
   cursor: pointer;
+}
+.txt-pointer:hover{
+  cursor: pointer;
   text-decoration: underline;
 }
-i:hover{
-  cursor: pointer;
-}
-
 .logo {
   width: 230px;
   padding: 20px 0;
@@ -121,7 +120,7 @@ i:hover{
   font-size: 10px;
 } 
 /* PHONE */
-@media only screen and (max-width: 1025px) {
+@media only screen and (max-width: 1000px) {
   header{
     position: sticky;
     top: 0;
