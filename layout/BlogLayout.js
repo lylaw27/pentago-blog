@@ -41,9 +41,9 @@ export default function BlogLayout(props){
             <section className="blog-body">
                 <div className="blog-share">
                     <i className="fas fa-share-alt"/>
-                    <Link href={`https://www.facebook.com/share.php?u=${currentURL}`}><i className="fab fa-facebook-f"/></Link>
-                    <Link href={`https://api.whatsapp.com/send?text=${currentURL}`}><i className="fab fa-whatsapp"/></Link>
-                    <Link href={`mailto:?subject=${blogContent.title}&body=${currentURL}`}><i className="far fa-envelope"/></Link>
+                    <Link href={`https://www.facebook.com/share.php?u=${currentURL}`}><i className="fab fa-facebook-f pointer"/></Link>
+                    <Link href={`https://api.whatsapp.com/send?text=${currentURL}`}><i className="fab fa-whatsapp pointer"/></Link>
+                    <Link href={`mailto:?subject=${blogContent.title}&body=${currentURL}`}><i className="far fa-envelope pointer"/></Link>
                 </div>
                 <Blogdetail {...props}/>
                 <BlogSidebar display={'blog-sidebar'} sidebar={sidebar} contentType={blogContent.contentType} scollFunc={scrollToSub}/>
