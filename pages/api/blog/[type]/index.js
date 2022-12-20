@@ -17,6 +17,7 @@ const dataProcessor = (newBlog) => {
     newBlog.uploadDate = nowMonth + "月 " + nowDate + ", " + nowYear;
     newBlog.timestamp = nowTime;
     newBlog.url = newUrl;
+    newBlog.pinned = false;
     return newBlog
 }
 

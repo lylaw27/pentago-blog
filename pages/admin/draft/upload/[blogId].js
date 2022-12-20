@@ -147,7 +147,7 @@ export default function EditBlog({blogEdit}){
                             <option value="樓市分析">樓市分析</option>
                             <option value="市場熱話">市場熱話</option>
                             <option value="歷史文化">歷史文化</option>
-                            <option value="就業數據">就業數據</option>
+                            <option value="經濟數據">經濟數據</option>
                             <option value="學校教育">學校教育</option>
                         </select>
                         <label htmlFor="article">Article</label>

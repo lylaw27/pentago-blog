@@ -44,7 +44,7 @@ export default function BlogSidebar({sidebar,scollFunc,contentType,display}){
             <Link href={`/${contentType}/category/學校教育`}>學校教育</Link>
             <Link href={`/${contentType}/category/市場熱話`}>市場熱話</Link>
             <Link href={`/${contentType}/category/歷史文化`}>歷史文化</Link>
-            <Link href={`/${contentType}/category/就業數據`}>就業數據</Link>
+            <Link href={`/${contentType}/category/經濟數據`}>經濟數據</Link>
         </div>
     </div>
   )

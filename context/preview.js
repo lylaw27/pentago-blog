@@ -14,7 +14,7 @@ export  const BlogProvider = (props) => {
         uploadDate : "",
         image_id: [],
         url: "",
-        imagefile: [],
+        imagefile: []
   })
   const [article,setArticle] = useState('')
   const [blogImage,setBlogImage] = useState([]);
