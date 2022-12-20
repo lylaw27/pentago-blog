@@ -44,6 +44,6 @@ export async function getStaticProps(context){
                 url: data.url
                 })),
             },
-            revalidate: 30
+            revalidate: 10
         }
     }

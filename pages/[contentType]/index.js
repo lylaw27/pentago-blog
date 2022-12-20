@@ -51,5 +51,5 @@ export async function getStaticProps(context){
             contentType: contentType,
           }
         },
-        revalidate: 30
+        revalidate: 10
       }}

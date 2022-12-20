@@ -28,6 +28,6 @@ export async function getStaticProps(){
                 title: data.title,
                 })),
             },
-            revalidate: 30
+            revalidate: 10
         }
     }
