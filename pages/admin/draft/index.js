@@ -40,7 +40,7 @@ const AdminBlogListings = ({blogs, pagination, changeLoading}) => {
                 article: "",
                 timestamp: "",
                 videoUrl: "",
-                category: "樓市分析",
+                category: [],
                 contentType: "英國懶人包",
                 uploadDate : "",
                 imagefile: []

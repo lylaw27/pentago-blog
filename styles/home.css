@@ -36,16 +36,6 @@
   font-weight: 500;
   display: inline-block;
 }
-.blog-path:hover{
-  color: #6e6e6e;
-  text-decoration: underline;
-}
-.blog-path-divider{
-  color: #7a7a7a;
-  font-size: 22px;
-  font-weight: 500;
-  display: inline-block;
-}
 .blog-section{
   padding-bottom: 100px;
 }
@@ -74,6 +64,7 @@
   border-radius: 5px;
   font-size: 13px;
   display: inline-block;
+  margin-right: 10px;
 }
 .blog-list-img{
   position: relative;

@@ -6,7 +6,7 @@ export default function BlogPagination({pagination}){
     let currentCategory = useRouter().query.category;
     let currentPage = parseInt(useRouter().query.pageId)
     if(currentCategory){
-        currentPath = currentPath + '/category/' + currentCategory
+        currentPath = currentPath + '/' + currentCategory
     }
     if(isNaN(currentPage)){
         currentPage = 1;

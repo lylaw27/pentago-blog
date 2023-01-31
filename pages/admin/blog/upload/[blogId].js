@@ -21,6 +21,7 @@ export default function EditBlog({blogEdit}){
     const [blogContent,setBlogContent] = useBlogContent;
     const [blogImage,setBlogImage] = useBlogImage;
     const [article,setArticle] = useArticle;
+    const categoryArray = ['樓市分析','市場熱話','歷史文化','經濟數據','學校教育','其他主題']
     const imageInput = useRef();
     const [loading, setLoading] = useState({
         alertBox: 'none',
@@ -46,6 +47,17 @@ export default function EditBlog({blogEdit}){
         }
         setBlogContent({...blogContent, imagefile: imagePreview});
     }
+    const CheckboxClick = (category) =>{
+        let categoryList = blogContent.category
+        if(categoryList.includes(category)){
+            const index = categoryList.indexOf(category)
+                categoryList.splice(index,1)
+        }
+        else{
+            categoryList = categoryList.concat(category)
+        }
+        setBlogContent({...blogContent,category: categoryList});
+    }
     const clearAll = () =>{
         if(confirm('Are you sure you want to clear all contents?')){
             setBlogContent({
@@ -54,7 +66,7 @@ export default function EditBlog({blogEdit}){
             article: "",
             timestamp: "",
             videoUrl: "",
-            category: "樓市分析",
+            category: [],
             contentType: "英國懶人包",
             uploadDate : "",
             imagefile: []
@@ -143,13 +155,14 @@ export default function EditBlog({blogEdit}){
                         <label htmlFor="videoUrl">Youtube Link</label>
                         <input className="input-border" type="text" name="videoUrl" value={blogContent.videoUrl} onChange={ChangeHandler}/><br/>
                         <label htmlFor="category">Category</label>
-                        <select className="input-border" name="category" onChange={ChangeHandler} value={blogContent.category}>
-                            <option value="樓市分析">樓市分析</option>
-                            <option value="市場熱話">市場熱話</option>
-                            <option value="歷史文化">歷史文化</option>
-                            <option value="經濟數據">經濟數據</option>
-                            <option value="學校教育">學校教育</option>
-                        </select>
+                        {categoryArray.map((category)=>{
+                            if(blogContent.category.includes(category)){
+                                return <div className='checkbox-delete pointer' key={category} onClick={()=>CheckboxClick(category)}><i className="fa-solid fa-xmark"/>{category}</div>
+                            }
+                            else{
+                                return <div className='checkbox-add pointer' key={category} onClick={()=>CheckboxClick(category)}><i className="fa-solid fa-plus"/>{category}</div>
+                            }
+                        })}
                         <label htmlFor="article">Article</label>
                         <div className="input-border textarea">
                             <SunEditor onChange={(content) => {setArticle(content)}} setContents={blogEdit.article} setOptions={{

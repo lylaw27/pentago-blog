@@ -33,10 +33,10 @@ export default function Home({blogs, sidebar, pagination, metatag}){
           <section className="blog-section">
             <div className="blog-body">
               <BlogList blogs={blogs} metatag={metatag}/>
-              <BlogSidebar scollFunc={scrollToSub} display={'blog-sidebar'} sidebar={sidebar} contentType={pagination.contentType}/>
+              <BlogSidebar scollFunc={scrollToSub} display={'blog-sidebar'} sidebar={sidebar}/>
             </div>
               {(pagination.contentType === 'home') ? null :<BlogPagination pagination={pagination}/> }
-            <BlogSidebar scollFunc={scrollToSub} display={'blog-sidebar-m'} sidebar={sidebar} contentType={pagination.contentType}/>
+            <BlogSidebar scollFunc={scrollToSub} display={'blog-sidebar-m'} sidebar={sidebar}/>
           </section>
           <div ref={scrollRef}>
             <BlogSubscription/>
@@ -49,15 +49,9 @@ export default function Home({blogs, sidebar, pagination, metatag}){
 }
 
 function BlogHeader({metatag}){
-  let divider = '\xa0>\xa0';
-  if(!metatag.category){
-     divider = '';
-  }
-return (
+return(
       <div className="blog-path-wrapper">
-          <Link href={`/${metatag.contentType}`}><h2 className="blog-path pointer">{metatag.contentType}</h2></Link>
-          <span className="blog-path-divider">{divider}</span>
-          <Link href={`/${metatag.contentType}/category/${metatag.category}`}><h2 className="blog-path pointer">{metatag.category}</h2></Link>
+          <h2 className="blog-path">{metatag.type}</h2>
       </div>
     )
 }
@@ -85,11 +79,14 @@ function BlogList({blogs,metatag}){
             <div className="blog-date">
             {blogs.uploadDate}
             </div>
-            <Link href={`/${blogs.contentType}/category/${blogs.category}`} >
-            <div className="blog-tag txt-pointer">
-            {blogs.category}
-            </div>
-            </Link>
+            {blogs.category.map((category)=>(
+              <Link key={category} href={`/category/${category}`} >
+              <div className="blog-tag txt-pointer">
+              {category}
+              </div>
+              </Link>
+            ))
+            }
             <Link href={`/content/${blogs.url}`} >
             <h1 className='blog-list-title txt-pointer'>
             {blogs.title}

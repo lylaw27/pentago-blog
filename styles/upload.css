@@ -20,6 +20,33 @@
     font-size: 15px;
     padding: 0 12px;
 }
+.uploadpage input[type='checkbox']{
+    display: inline;
+    height: 15px;
+}
+.uploadpage .fa-plus{
+    margin-right: 10px;
+}
+.uploadpage .fa-xmark{
+    margin-right: 10px;
+}
+.uploadpage .checkbox-add{
+    padding: 12px;
+    margin: 10px;
+    display: inline-block;
+    border: #4c4c4c 1px solid;
+    border-radius: 15px;
+}
+.uploadpage .checkbox-delete{
+    background-color: #BE2C2D;
+    border: #BE2C2D 1px solid;
+    color: white;
+    padding: 12px 14px;
+    margin: 10px;
+    display: inline-block;
+    border: #4c4c4c 1px solid;
+    border-radius: 15px;
+}
 .uploadpage .input-border{
     box-sizing: border-box;
     border: 1.5px solid #b8b8b8;

@@ -8,11 +8,6 @@ export default function Layout(props){
 export async function getStaticProps(){
     const blogs = await Dbconnect('blogs')
     const recordPerPage = 8;
-    // const contentType = ['民間博客','Patreon文章預覽','英國物業小知識','英國懶人包','Youtube影片']
-    // let blogList = []
-    // for(const type of contentType){
-    //   await blogs.find({contentType: type}).sort({timestamp: -1}).limit(1).forEach(result=>{blogList.push(result)})  
-    // }
     const blogList = await blogs.find().sort({pinned: -1,timestamp: -1}).limit(recordPerPage).toArray();
     const recentBlog = await blogs.find()
                                   .sort({timestamp: -1})

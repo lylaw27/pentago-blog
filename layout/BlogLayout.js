@@ -73,11 +73,14 @@ export function Blogdetail({blogContent,suggestion}){
     return(
         <div className="blog-content">
         <div className='blog-header'>
-            <Link href={`/${blogContent.contentType}/category/${blogContent.category}`} >
-            <div className="blog-tag pointer">
-            {blogContent.category}
-            </div>
-            </Link>
+            {blogContent.category.map((category)=>(
+              <Link key={category} href={`/category/${category}`} >
+              <div className="blog-tag txt-pointer">
+              {category}
+              </div>
+              </Link>
+            ))
+            }
                 <h1 className='blog-header-title'>{blogContent.title}</h1>
                 <div className="blog-content-date">
             {blogContent.uploadDate}

@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function BlogSidebar({sidebar,scollFunc,contentType,display}){
+export default function BlogSidebar({sidebar,scollFunc,display}){
+    const categoryArray = ['樓市分析','市場熱話','歷史文化','經濟數據','學校教育','其他主題']
     return(
     <div className={display}>
         <div className="blog-sidebox">
@@ -40,11 +41,9 @@ export default function BlogSidebar({sidebar,scollFunc,contentType,display}){
         </div>
         <div className="blog-sidebox blog-sidebox-post">
             <h1>分類</h1>
-            <Link href={`/${contentType}/category/樓市分析`}>樓市分析</Link>
-            <Link href={`/${contentType}/category/學校教育`}>學校教育</Link>
-            <Link href={`/${contentType}/category/市場熱話`}>市場熱話</Link>
-            <Link href={`/${contentType}/category/歷史文化`}>歷史文化</Link>
-            <Link href={`/${contentType}/category/經濟數據`}>經濟數據</Link>
+            {categoryArray.map((category)=>(
+                <Link key={category} href={`/category/${category}`}>{category}</Link>
+            ))}
         </div>
     </div>
   )
