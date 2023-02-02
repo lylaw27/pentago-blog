@@ -24,6 +24,10 @@
   justify-content: center;
   height: auto;
 }
+.blog-autoplay{
+  width: 60%;
+  margin: auto;
+}
 .blog-path-wrapper{
   position: relative;
   font-size: 22px;

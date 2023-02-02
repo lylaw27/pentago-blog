@@ -30,6 +30,11 @@ export default function Home({blogs, sidebar, pagination, metatag}){
                 <h1>最強英國地區全面分析<br/>英國民間分析員阿P</h1>
             </div> */}
           </div>
+          <div className='blog-autoplay'>
+              <iframe className="blog-video"
+                src="https://www.youtube.com/embed/1wluCcQgGjM?autoplay=1&mute=1">
+                </iframe>
+          </div>
           <section className="blog-section">
             <div className="blog-body">
               <BlogList blogs={blogs} metatag={metatag}/>
