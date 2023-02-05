@@ -25,10 +25,28 @@ export default function Home({blogs, sidebar, pagination, metatag}){
         <div>
         <Header/>
           <div className="overlap">
-          <div className="background">
-            {/* <div className="title">
-                <h1>最強英國地區全面分析<br/>英國民間分析員阿P</h1>
-            </div> */}
+          <div className="background"/>
+          <div className="blog-media">
+            <Link href="https://www.facebook.com/PentaGo-%E8%8B%B1%E5%9C%8B%E7%89%A9%E6%A5%AD%E9%A0%98%E8%88%AA-101672148357502/?view_public_for=101672148357502">
+            <div className="blog-media-icon pointer">
+              <i className="fa-brands fa-facebook-f icon-fb"></i>FACEBOOK
+            </div>
+            </Link>
+            <Link href="https://www.instagram.com/pentagoproperty/">
+            <div className="blog-media-icon pointer">
+              <i className="fa-brands fa-instagram icon-ig"></i>INSTAGRAM
+            </div>
+            </Link>
+            <Link href="https://www.youtube.com/c/ResearcherP">
+            <div className="blog-media-icon pointer">
+              <i className="fa-brands fa-youtube icon-yt"></i>YOUTUBE
+            </div>
+            </Link>
+            <Link href="https://www.patreon.com/ResearcherP">
+            <div className="blog-media-icon pointer">
+              <i className="fa-brands fa-patreon icon-pa"></i>PATREON
+            </div>
+            </Link>
           </div>
           <div className='blog-autoplay'>
               <iframe className="blog-video"
