@@ -6,7 +6,8 @@ export default function BlogContent(props){
 }
 
 export async function getStaticPaths(){
-    const blogs = await DbClient.db().collection('blogs');
+    await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
     const idArray = await blogs.distinct("url");
     const paths = idArray.map(url => ({params: {blogUrl: url.toString()}}))
     await DbClient.close();
@@ -15,7 +16,8 @@ export async function getStaticPaths(){
 
 export async function getStaticProps(context){
     const blogUrl = context.params.blogUrl;
-    const blogs = await DbClient.db().collection('blogs');
+    await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
     const blogContent = await blogs.findOne({url: blogUrl});
     const recentBlog = await blogs.find().sort({timestamp: -1}).limit(8).toArray();
     const suggestion = await blogs.aggregate([{$match: {url: {$ne: blogUrl}}},{ $sample: { size: 2 } }]).toArray();

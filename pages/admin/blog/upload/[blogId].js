@@ -224,7 +224,8 @@ export const getServerSideProps = withPageAuthRequired({
     returnTo: '/admin',
     async getServerSideProps(context) {
         let blogId = context.params.blogId
-        const blogs = await DbClient.db().collection('blogs')
+        await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
         const blogContent = await blogs.findOne({_id: ObjectId(blogId)})
         await DbClient.close();
         return{

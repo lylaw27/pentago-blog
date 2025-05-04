@@ -64,7 +64,8 @@ export default function AdminDashboard(props){
 export const getServerSideProps = withPageAuthRequired({
     returnTo: '/admin',
     async getServerSideProps() {
-        const blogs = await DbClient.db().collection('blogs');
+        await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
         const blogCount = await blogs.countDocuments({contentType: '民間博客'});
         const propertyCount = await blogs.countDocuments({contentType: '英國物業小知識'});
         const igCount = await blogs.countDocuments({contentType: '英國懶人包'});

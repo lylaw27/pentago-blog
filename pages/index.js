@@ -7,7 +7,7 @@ export default function Layout(props){
 
 export async function getStaticProps(){
     await DbClient.connect();
-    const blogs = await DbClient.db('Blog').collection('listings');
+    const blogs = DbClient.db('Post').collection('blogs');
     const recordPerPage = 8;
     const blogList = await blogs.find().sort({pinned: -1,timestamp: -1}).limit(recordPerPage).toArray();
     const recentBlog = await blogs.find()

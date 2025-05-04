@@ -6,7 +6,8 @@ export default function Layout(props){
 }
 
 export async function getStaticPaths() {
-  const blogs = await DbClient.db().collection('blogs')
+  await DbClient.connect();
+  const blogs = DbClient.db('Post').collection('blogs');
   const categoryArray = ['樓市分析','市場熱話','歷史文化','經濟數據','學校教育','其他主題']
   let paths = [];
   for(const categoryItem of categoryArray){
@@ -20,7 +21,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context){
-    const blogs = await DbClient.db().collection('blogs')
+    await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
     let category = context.params.category;
     let page = context.params.pageId;
     let recordPerPage = 8;

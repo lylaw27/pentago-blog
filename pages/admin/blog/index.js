@@ -130,7 +130,8 @@ export const getServerSideProps = withPageAuthRequired({
     if(!adminQuery.page) {page = 1}
     delete adminQuery.page;
     if(context.query.title){adminQuery = {title: {$regex : context.query.title}}}
-    const blogs = DbClient.db().collection('blogs')
+    await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
     let recordPerPage = 20;
     const blogList = await blogs.find(adminQuery)
                               .sort({pinned: -1,timestamp: -1})

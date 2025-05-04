@@ -12,7 +12,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context){
-    const blogs = await DbClient.db().collection('blogs')
+    await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
     let category = context.params.category;
     let recordPerPage = 8;
     const blogList = await blogs.find({category: category})

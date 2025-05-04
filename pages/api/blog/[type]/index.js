@@ -23,8 +23,9 @@ const dataProcessor = (newBlog) => {
 
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
-            const collection = req.query.type
-            const blogs = await DbClient.db().collection(collection);
+            const collection = req.query.type;
+            await DbClient.connect();
+            const blogs = DbClient.db('Post').collection(collection);
             let newBlog = req.body.payload;
             newBlog = await dataProcessor(newBlog);
             delete newBlog._id;

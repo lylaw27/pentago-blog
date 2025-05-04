@@ -6,22 +6,23 @@ export default function Layout(props){
 }
 
 export async function getStaticPaths() {
-  const blogs = await DbClient.db().collection('blogs')
-  const contentType = await blogs.distinct('contentType')
-  let paths = [];
-  for(const contentTypeItem of contentType){
+    await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
+    const contentType = await blogs.distinct('contentType')
+    let paths = [];
+    for(const contentTypeItem of contentType){
       const pageCount = await blogs.countDocuments({contentType: contentTypeItem})
       const maxPage = Math.ceil(pageCount/8)
       let pathArray = (Array.from({length: maxPage},(_,j)=> ({params:{contentType: contentTypeItem, pageId: (j+1).toString()}})))
       paths = paths.concat(pathArray)
     }
     await DbClient.close();
-  return {paths,fallback: 'blocking'}
+    return {paths,fallback: 'blocking'}
 }
 
 export async function getStaticProps(context) {
-    // try {
-        const blogs = await DbClient.db('Blog').collection('listings')
+        await DbClient.connect();
+        const blogs = DbClient.db('Post').collection('blogs');
         let page = context.params.pageId
         let contentType = context.params.contentType
         const recordPerPage = 8;
@@ -38,6 +39,7 @@ export async function getStaticProps(context) {
             .limit(recordPerPage)
             .toArray();
         const blogCount = await blogs.countDocuments({contentType: contentType})
+        await DbClient.close();
         return {
             props: {
                 blogs: blogList.map(data => ({
@@ -65,8 +67,4 @@ export async function getStaticProps(context) {
             },
             revalidate: 10
         }
-    // }
-    // finally {
-    //     await DbClient.close();
-    // }
 }

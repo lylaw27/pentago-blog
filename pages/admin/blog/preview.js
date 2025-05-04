@@ -14,7 +14,8 @@ export default function BlogContent({sidebar, suggestion}){
 }
 
 export async function getStaticProps(){
-    const blogs = await DbClient.db().collection('blogs');
+    await DbClient.connect();
+    const blogs = DbClient.db('Post').collection('blogs');
     const recentBlog = await blogs.find().sort({timestamp: -1}).limit(8).toArray();
     const suggestion = await blogs.aggregate([{ $sample: { size: 2 } }]).toArray();
     await DbClient.close();
