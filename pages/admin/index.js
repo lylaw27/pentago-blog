@@ -42,11 +42,11 @@ export default function AdminDashboard(props){
                         <div>Youtube影片</div>
                     </div>
                     </Link>
-                    <Link href={'/admin/blog?contentType=Patreon文章'}>
+                    <Link href={'/admin/blog?contentType=Patreon文章預覽'}>
                     <div className='db-stats pointer'>
                         <i className="fa-brands fa-patreon"/>
                         <div className="db-count">{props.patreon}</div>
-                        <div>Patreon文章</div>
+                        <div>Patreon文章預覽</div>
                     </div>
                     </Link>
                     <Link href={'/admin/blog?contentType=英國物業小知識'}>
