@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const BlogContext = React.createContext()
+const BlogContext = React.createContext();
 
 export  const BlogProvider = (props) => {
   const [blogContent, setBlogContent] = useState({
