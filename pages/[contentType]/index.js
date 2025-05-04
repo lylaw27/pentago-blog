@@ -14,19 +14,23 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context){
-    const contentType = context.params.contentType;
-    const blogs = await DbClient.db('Blog').collection('listings')
-    const recordPerPage = 8;
-    const recentBlog = await blogs.find()
-                                  .sort({timestamp: -1})
+    try{
+        const contentType = context.params.contentType;
+        const blogs = await DbClient.db('Blog').collection('listings')
+        const recordPerPage = 8;
+        const recentBlog = await blogs.find()
+                                      .sort({timestamp: -1})
+                                      .limit(recordPerPage)
+                                      .toArray();
+        const blogList = await blogs.find({contentType: contentType})
+                                  .sort({pinned: -1,timestamp: -1})
                                   .limit(recordPerPage)
                                   .toArray();
-    const blogList = await blogs.find({contentType: contentType})
-                              .sort({pinned: -1,timestamp: -1})
-                              .limit(recordPerPage)
-                              .toArray();
-    const blogCount = await blogs.countDocuments({contentType: contentType})
-    await DbClient.close();
+        const blogCount = await blogs.countDocuments({contentType: contentType})
+    }
+    finally {
+        await DbClient.close();
+    }
     return{
         props: {
           blogs: blogList.map(data=>({
