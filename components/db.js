@@ -7,6 +7,9 @@ const client = new MongoClient(uri, {
         version: ServerApiVersion.v1,
         strict: true,
         deprecationErrors: true,
+        tls: true,
+        serverSelectionTimeoutMS: 3000,
+        autoSelectFamily: false
     }
 });
 
