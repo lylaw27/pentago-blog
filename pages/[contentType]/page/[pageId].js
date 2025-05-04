@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-    try {
+    // try {
         const blogs = await DbClient.db('Blog').collection('listings')
         let page = context.params.pageId
         let contentType = context.params.contentType
@@ -65,8 +65,8 @@ export async function getStaticProps(context) {
             },
             revalidate: 10
         }
-    }
-    finally {
-        await DbClient.close();
-    }
+    // }
+    // finally {
+    //     await DbClient.close();
+    // }
 }
