@@ -27,10 +27,6 @@ export async function getStaticProps(context){
                                   .limit(recordPerPage)
                                   .toArray();
         const blogCount = await blogs.countDocuments({contentType: contentType})
-    }
-    finally {
-        await DbClient.close();
-    }
     return{
         props: {
           blogs: blogList.map(data=>({
@@ -57,4 +53,9 @@ export async function getStaticProps(context){
           }
         },
         revalidate: 10
-      }}
+      }
+    }
+    finally {
+        await DbClient.close();
+    }
+}
