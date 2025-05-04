@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context){
     const contentType = context.params.contentType;
-    const blogs = await DbClient.db().collection('blogs')
+    const blogs = await DbClient.db('Blog').collection('listings')
     const recordPerPage = 8;
     const recentBlog = await blogs.find()
                                   .sort({timestamp: -1})
