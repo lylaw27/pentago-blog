@@ -1,13 +1,14 @@
 import { ObjectId } from 'mongodb';
-import Dbconnect from '../../../../components/db';
+import DbClient from '../../../../components/db';
 
 export default async function blogDelete(req,res){
     if(req.method === 'POST'){
         const collection = req.query.type
-        const blogs = await Dbconnect(collection);
+        const blogs = await DbClient.db().collection(collection);
         const _id = req.body._id
         const pinned = req.body.pinned
         await blogs.updateOne({_id: ObjectId(_id)},{$set: {pinned: !pinned}});
+        await DbClient.close();
         if(!pinned){
            res.status(201).json({msg: 'Pinned!'}) 
         }

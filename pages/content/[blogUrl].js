@@ -1,4 +1,4 @@
-import Dbconnect from '../../components/db.js'
+import DbClient from '../../components/db.js'
 import BlogLayout from '../../layout/BlogLayout.js';
 
 export default function BlogContent(props){
@@ -6,18 +6,20 @@ export default function BlogContent(props){
 }
 
 export async function getStaticPaths(){
-    const blogs = await Dbconnect('blogs');
+    const blogs = await DbClient.db().collection('blogs');
     const idArray = await blogs.distinct("url");
     const paths = idArray.map(url => ({params: {blogUrl: url.toString()}}))
+    await DbClient.close();
     return{paths, fallback: 'blocking'}
 }
 
 export async function getStaticProps(context){
     const blogUrl = context.params.blogUrl;
-    const blogs = await Dbconnect('blogs');
+    const blogs = await DbClient.db().collection('blogs');
     const blogContent = await blogs.findOne({url: blogUrl});
     const recentBlog = await blogs.find().sort({timestamp: -1}).limit(8).toArray();
     const suggestion = await blogs.aggregate([{$match: {url: {$ne: blogUrl}}},{ $sample: { size: 2 } }]).toArray();
+    await DbClient.close();
     return{
         props:{
             blogContent: {

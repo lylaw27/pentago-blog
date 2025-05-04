@@ -1,5 +1,5 @@
 import React, {useContext,useState,useRef,useEffect} from 'react';
-import Dbconnect from '../../../../components/db';
+import DbClient from '../../../../components/db';
 import Toolbar from '../../../../components/toolbar';
 import Script from 'next/script';
 import Head from 'next/head';
@@ -224,7 +224,7 @@ export const getServerSideProps = withPageAuthRequired({
     returnTo: '/admin',
     async getServerSideProps(context) {
         let blogId = context.params.blogId
-        const blogs = await Dbconnect('draft')
+        const blogs = await DbClient.db().collection('draft')
         const blogContent = await blogs.findOne({_id: ObjectId(blogId)})
         return{
             props: {

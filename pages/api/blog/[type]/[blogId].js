@@ -1,5 +1,5 @@
 import {v2 as cloudinary} from 'cloudinary';
-import Dbconnect from '../../../../components/db';
+import DbClient from '../../../../components/db';
 import { ObjectId } from 'mongodb';
 
 cloudinary.config({
@@ -44,7 +44,7 @@ const dataProcessor = (newBlog) => {
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
             const collection = req.query.type
-            const blogs = await Dbconnect(collection);
+            const blogs = await DbClient.db().collection(collection);
             let newBlog = req.body.payload;
             const blogId = req.query.blogId;
             newBlog = await dataProcessor(newBlog);
@@ -53,6 +53,7 @@ export default async function blogPost(req,res){
             }
             delete newBlog._id;
             await blogs.updateOne({_id: ObjectId(blogId)},{$set: newBlog});
+            await DbClient.close();
             res.status(201).json({msg: "Upload Completed!"});
     }
 }

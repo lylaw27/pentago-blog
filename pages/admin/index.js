@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Toolbar from '../../components/toolbar';
-import Dbconnect from '../../components/db';
+import DbClient from '../../components/db';
 import { useUser } from '@auth0/nextjs-auth0';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
@@ -64,13 +64,14 @@ export default function AdminDashboard(props){
 export const getServerSideProps = withPageAuthRequired({
     returnTo: '/admin',
     async getServerSideProps() {
-        const blogs = await Dbconnect('blogs');
+        const blogs = await DbClient.db().collection('blogs');
         const blogCount = await blogs.countDocuments({contentType: '民間博客'});
         const propertyCount = await blogs.countDocuments({contentType: '英國物業小知識'});
         const igCount = await blogs.countDocuments({contentType: '英國懶人包'});
         const youtubeCount = await blogs.countDocuments({contentType: 'Youtube影片'});
         const patreonCount = await blogs.countDocuments({contentType: 'Patreon文章預覽'})
-        return { 
+        await DbClient.close();
+        return {
             props:{
                         blog: blogCount.toString(),
                         property: propertyCount.toString(),

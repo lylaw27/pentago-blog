@@ -1,5 +1,5 @@
 import Home from '../../../layout/home'
-import Dbconnect from '../../../components/db';
+import DbClient from '../../../components/db';
 
 export default function Layout(props){
   return (<Home {...props}/>)
@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context){
-    const blogs = await Dbconnect('blogs')
+    const blogs = await DbClient.db().collection('blogs')
     let category = context.params.category;
     let recordPerPage = 8;
     const blogList = await blogs.find({category: category})
@@ -24,7 +24,7 @@ export async function getStaticProps(context){
                                 .limit(recordPerPage)
                                 .toArray();
     const blogCount = await blogs.countDocuments({category: category})
-        // if(!result){res.send("notfound")}
+    await DbClient.close();
     return{
         props: {
           blogs: blogList.map(data=>({

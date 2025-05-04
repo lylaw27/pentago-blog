@@ -1,20 +1,21 @@
 import Home from '../../layout/home'
-import Dbconnect from '../../components/db';
+import DbClient from '../../components/db';
 
 export default function Layout(props){
   return (<Home {...props}/>)
 }
 
 export async function getStaticPaths() {
-  const blogs = await Dbconnect('blogs')
+  const blogs = await DbClient.db().collection('blogs')
   const contentType = await blogs.distinct('contentType')
   const paths = contentType.map(type=>({params: {contentType: type}}))
+  await DbClient.close();
   return {paths,fallback: 'blocking'}
 }
 
 export async function getStaticProps(context){
     const contentType = context.params.contentType;
-    const blogs = await Dbconnect('blogs')
+    const blogs = await DbClient.db().collection('blogs')
     const recordPerPage = 8;
     const recentBlog = await blogs.find()
                                   .sort({timestamp: -1})
@@ -25,7 +26,7 @@ export async function getStaticProps(context){
                               .limit(recordPerPage)
                               .toArray();
     const blogCount = await blogs.countDocuments({contentType: contentType})
-    // if(!result){res.send("notfound")}
+    await DbClient.close();
     return{
         props: {
           blogs: blogList.map(data=>({

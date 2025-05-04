@@ -1,12 +1,12 @@
 import Home from '../../../../layout/home'
-import Dbconnect from '../../../../components/db';
+import DbClient from '../../../../components/db';
 
 export default function Layout(props){
     return (<Home {...props}/>)
 }
 
 export async function getStaticPaths() {
-  const blogs = await Dbconnect('blogs')
+  const blogs = await DbClient.db().collection('blogs')
   const categoryArray = ['樓市分析','市場熱話','歷史文化','經濟數據','學校教育','其他主題']
   let paths = [];
   for(const categoryItem of categoryArray){
@@ -15,11 +15,12 @@ export async function getStaticPaths() {
       let pathArray = (Array.from({length: maxPage},(_,j)=> ({params:{category: categoryItem, pageId: (j+1).toString()}})))
       paths = paths.concat(pathArray)
     }
+    await DbClient.close();
   return {paths,fallback: 'blocking'}
 }
 
 export async function getStaticProps(context){
-    const blogs = await Dbconnect('blogs')
+    const blogs = await DbClient.db().collection('blogs')
     let category = context.params.category;
     let page = context.params.pageId;
     let recordPerPage = 8;
@@ -33,7 +34,7 @@ export async function getStaticProps(context){
                                 .limit(recordPerPage)
                                 .toArray();
     const blogCount = await blogs.countDocuments({category: category})
-        // if(!result){res.send("notfound")}
+    await DbClient.close();
     return{
         props: {
           blogs: blogList.map(data=>({

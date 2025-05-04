@@ -1,12 +1,12 @@
 import Home from '../../../layout/home'
-import Dbconnect from '../../../components/db';
+import DbClient from '../../../components/db';
 
 export default function Layout(props){
   return (<Home {...props}/>)
 }
 
 export async function getStaticPaths() {
-  const blogs = await Dbconnect('blogs')
+  const blogs = await DbClient.db().collection('blogs')
   const contentType = await blogs.distinct('contentType')
   let paths = [];
   for(const contentTypeItem of contentType){
@@ -15,11 +15,12 @@ export async function getStaticPaths() {
       let pathArray = (Array.from({length: maxPage},(_,j)=> ({params:{contentType: contentTypeItem, pageId: (j+1).toString()}})))
       paths = paths.concat(pathArray)
     }
+    await DbClient.close();
   return {paths,fallback: 'blocking'}
 }
 
 export async function getStaticProps(context){
-    const blogs = await Dbconnect('blogs')
+    const blogs = await DbClient.db().collection('blogs')
     let page = context.params.pageId
     let contentType = context.params.contentType
     const recordPerPage = 8;
@@ -34,7 +35,7 @@ export async function getStaticProps(context){
                                 .limit(recordPerPage)
                                 .toArray();
     const blogCount = await blogs.countDocuments({contentType: contentType})
-        // if(!result){res.send("notfound")}
+    await DbClient.close();
     return{
         props: {
           blogs: blogList.map(data=>({

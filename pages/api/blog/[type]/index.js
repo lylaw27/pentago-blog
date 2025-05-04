@@ -1,4 +1,4 @@
-import Dbconnect from '../../../../components/db';
+import DbClient from '../../../../components/db';
 
 const dataProcessor = (newBlog) => {
     //dateProcessor
@@ -24,11 +24,12 @@ const dataProcessor = (newBlog) => {
 export default async function blogPost(req,res){
     if(req.method === 'POST'){
             const collection = req.query.type
-            const blogs = await Dbconnect(collection);
+            const blogs = await DbClient.db().collection(collection);
             let newBlog = req.body.payload;
             newBlog = await dataProcessor(newBlog);
             delete newBlog._id;
             await blogs.insertOne(newBlog);
+            await DbClient.close();
             res.status(201).json({msg: "Upload Completed!"});
     }
 }

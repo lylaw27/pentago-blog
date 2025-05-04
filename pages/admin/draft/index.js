@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useEffect,useContext,useState } from 'react';
 import BlogContext from '../../../context/preview';
 import QueryPagination from '../../../components/querypagination.js';
-import Dbconnect from '../../../components/db.js';
+import DbClient from '../../../components/db.js';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 
@@ -119,14 +119,15 @@ export const getServerSideProps = withPageAuthRequired({
     if(!adminQuery.page) {page = 1};
     delete adminQuery.page;
     if(context.query.title){adminQuery = {title: {$regex : context.query.title}}}else{delete adminQuery.title;}
-    const blogs = await Dbconnect('draft')
+    const blogs = await DbClient.db().collection('draft')
     let recordPerPage = 20;
     const blogList = await blogs.find(adminQuery)
                               .sort({pinned: -1,timestamp: -1})
                               .skip((page-1) * recordPerPage)
                               .limit(recordPerPage)
                               .toArray();
-    const blogCount = await blogs.countDocuments(adminQuery)
+    const blogCount = await blogs.countDocuments(adminQuery);
+    await DbClient.close();
     return{
         props: {
           blogs: blogList.map(data=>({

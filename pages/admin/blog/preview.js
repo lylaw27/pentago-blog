@@ -1,7 +1,7 @@
 import BlogLayout from '../../../layout/BlogLayout.js';
 import BlogContext from '../../../context/preview';
 import { useContext } from 'react';
-import Dbconnect from '../../../components/db.js';
+import DbClient from '../../../components/db.js';
 
 
 export default function BlogContent({sidebar, suggestion}){
@@ -14,9 +14,10 @@ export default function BlogContent({sidebar, suggestion}){
 }
 
 export async function getStaticProps(){
-    const blogs = await Dbconnect('blogs');
+    const blogs = await DbClient.db().collection('blogs');
     const recentBlog = await blogs.find().sort({timestamp: -1}).limit(8).toArray();
     const suggestion = await blogs.aggregate([{ $sample: { size: 2 } }]).toArray();
+    await DbClient.close();
     return{
         props:{
             suggestion: suggestion.map(data=>({
