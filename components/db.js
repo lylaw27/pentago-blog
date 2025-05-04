@@ -1,12 +1,6 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://lylaw:lylaw@pentago-db.3rvcu.mongodb.net/?retryWrites=true&w=majority&appName=PentaGo-db";
-const DbClient = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
+const DbClient = new MongoClient(uri);
 
 // export default function DbClient() {
 // // Create a MongoClient with a MongoClientOptions object to set the Stable API version
