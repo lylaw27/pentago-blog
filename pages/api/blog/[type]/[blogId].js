@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 cloudinary.config({
     cloud_name: "pentagoproperty",
     api_key: "856789475668125",
-    api_secret: "S2ggAr_6H5aUw5e9zq0LP5xqa2I",
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const deleteImage = (image_id) => {
