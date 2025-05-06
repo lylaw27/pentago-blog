@@ -3,8 +3,8 @@ import DbClient from '../../../../components/db';
 import { ObjectId } from 'mongodb';
 
 cloudinary.config({
-    cloud_name: "pentagoproperty",
-    api_key: "856789475668125",
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
