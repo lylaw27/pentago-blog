@@ -36,6 +36,59 @@ The project includes both the blog's public-facing site and an **Admin Panel** t
 - Images and videos that are emded in blogs are stored in **Cloudinary**
 - **WYGIWYS** editor for rich-text blog creation
 
+## How It Works
+### 1. Authentication with Auth0
+Auth0 is used for user authentication. Users must log in to access the Admin Panel.
+
+- Auth0 provides secure login mechanisms, and tokens are stored in cookies to manage the session.
+
+- On successful login, the user will have access to the Admin Panel where they can manage blog posts.
+
+### 2. MongoDB for Storing Blog Posts
+Blog posts are stored in MongoDB, using Mongoose to manage the data schema.
+
+- Each post includes fields like title, content, date of publication, and images (from Cloudinary).
+
+- MongoDB handles storage and retrieval of blog data through API routes.
+
+### 3. Blog Creation/Editing with WYGIWYS Editor
+The WYGIWYS (What You Get Is What You See) editor is used for creating and editing blog posts.
+
+- It provides a rich-text editor that supports:
+
+  - Text formatting
+
+  - Image insertion
+
+  - Other multimedia elements
+
+- Images uploaded to Cloudinary are added to blog posts through the editor.
+
+### 4. Cloudinary for Image Storage
+All images (such as post images and media) are uploaded to Cloudinary.
+
+- Cloudinary provides a URL for each image, which can be used within blog posts for displaying images.
+
+- This allows easy media management and optimization, especially for images.
+
+### 5. API Routes for Data Handling
+Next.js API routes are used to manage blog data. The key API endpoints are as follows:
+
+```http
+POST /api/blog/blogs: Create New Blog Post
+POST /api/blog/draft: Create New Draft Post
+
+POST /api/blog/blogs/{blogId}: Edit Existing Blog Post
+POST /api/blog/draft/{blogId}: Edit Draft Post
+
+POST /api/blog/blogs/delete: Delete Blog Post
+POST /api/blog/draft/delete: Delete Draft Post
+
+POST /api/blog/blogs/pin: Pin/Unpin Blog Post
+
+POST /api/subscription: Subscribe to newsletter
+```
+
 ## Installation
 
 ### 1. Clone the Repository
@@ -168,54 +221,6 @@ This will redirect you to the Auth0 login page, where you can log in using your 
 │   └── texteditor.css                      # WYGIWYS editor styles
 └── /context
     └── preview.js                          # Blog preview context
-```
-
-## How It Works
-### 1. Authentication with Auth0
-Auth0 is used for user authentication. Users must log in to access the Admin Panel.
-
-- Auth0 provides secure login mechanisms, and tokens are stored in cookies to manage the session.
-
-- On successful login, the user will have access to the Admin Panel where they can manage blog posts.
-
-### 2. MongoDB for Storing Blog Posts
-Blog posts are stored in MongoDB, using Mongoose to manage the data schema.
-
-- Each post includes fields like title, content, date of publication, and images (from Cloudinary).
-
-- MongoDB handles storage and retrieval of blog data through API routes.
-
-### 3. Blog Creation/Editing with WYGIWYS Editor
-The WYGIWYS (What You Get Is What You See) editor is used for creating and editing blog posts.
-
-- It provides a rich-text editor that supports:
-
-  - Text formatting
-
-  - Image insertion
-
-  - Other multimedia elements
-
-- Images uploaded to Cloudinary are added to blog posts through the editor.
-
-### 4. Cloudinary for Image Storage
-All images (such as post images and media) are uploaded to Cloudinary.
-
-- Cloudinary provides a URL for each image, which can be used within blog posts for displaying images.
-
-- This allows easy media management and optimization, especially for images.
-
-### 5. API Routes for Data Handling
-Next.js API routes are used to manage blog data. The key API endpoints are as follows:
-
-```http
-GET /api/posts: Retrieve all blog posts
-
-POST /api/posts: Create a new blog post
-
-PUT /api/posts/:id: Edit an existing blog post
-
-DELETE /api/posts/:id: Delete a blog post
 ```
 
 These API routes allow interaction with the MongoDB database to perform CRUD operations on blog posts.
