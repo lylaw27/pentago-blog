@@ -8,6 +8,8 @@ The project includes both the blog's public-facing site and an **Admin Panel** t
 
 ## Tech Stack
 
+![](/images/blog-diagram.svg)
+
 - **Frontend**: Next.js (React)
 - **Backend**: Next.js API Routes (Serverless functions)
 - **Database**: MongoDB (for storing blog posts)
@@ -22,12 +24,14 @@ The project includes both the blog's public-facing site and an **Admin Panel** t
 - View and read published blog posts
 - Responsive design using Tailwind CSS
 - Pagination for blog posts
-- Search functionality to find specific posts
+- Categorizing blog posts to help users find contents they are interested in
+- Subscribe for newsletters and notifications for new blog posts
 
 ### Admin Panel
 - Login/Logout using **Auth0** authentication
-- Create, edit, and delete blog posts
-- Upload images to **Cloudinary** for use in blog content
+- Search, create, edit, and delete blog posts
+- Allow client to create and save drafts
+- Images and videos that are emded in blogs are stored in **Cloudinary**
 - **WYGIWYS** editor for rich-text blog creation
 
 ## Installation
@@ -37,8 +41,8 @@ The project includes both the blog's public-facing site and an **Admin Panel** t
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/blog-website.git
-cd blog-website
+git clone https://github.com/lylaw27/pentago-blog.git
+cd pentago-blog
 ```
 
 ### 2. Install Dependencies
@@ -58,13 +62,16 @@ Create a .env.local file in the root of the project and add the following enviro
 
 ```bash
 # Auth0
-NEXT_PUBLIC_AUTH0_CLIENT_ID=<your-auth0-client-id>
-NEXT_PUBLIC_AUTH0_DOMAIN=<your-auth0-domain>
+AUTH0_SECRET=<your-auth0-secret>
+AUTH0_BASE_URL=<your-domain>
+AUTH0_ISSUER_BASE_URL=<your-auth0-domain>
+AUTH0_CLIENT_ID=<your-auth0-client-id>
+AUTH0_CLIENT_SECRET=<your-auth0-client-secret>
 
 # Cloudinary
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=<your-cloudinary-cloud-name>
-NEXT_PUBLIC_CLOUDINARY_API_KEY=<your-cloudinary-api-key>
-NEXT_PUBLIC_CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
+CLOUDINARY_CLOUD_NAME=<your-cloudinary-cloud-name>
+CLOUDINARY_API_KEY=<your-cloudinary-api-key>
+CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
 
 # MongoDB
 MONGODB_URI=<your-mongodb-connection-string>
