@@ -8,7 +8,9 @@ The project includes both the blog's public-facing site and an **Admin Panel** t
 
 ## Tech Stack
 
-![](/images/blog-diagram.png)
+<p align="center" width="100%">
+    <img width="60%" src="/images/blog-diagram.png">
+</p>
 
 - **Frontend**: Next.js (React)
 - **Backend**: Next.js API Routes (Serverless functions)
