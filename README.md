@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a full-stack blog website built with **Next.js** (React Framework) for server-side rendering, **Tailwind CSS** for responsive and utility-first design, **Cloudinary** for image storage, **WYGIWYS** (What You Get Is What You See) for blog content creation, and **Auth0** for user authentication.
+This project is a full-stack blog website built with **Next.js** (React Framework) for server-side rendering, **CSS3** for responsive and utility-first design, **Cloudinary** for image storage, **WYGIWYS** (What You Get Is What You See) for blog content creation, and **Auth0** for user authentication.
 
 The project includes both the blog's public-facing site and an **Admin Panel** that allows authenticated users to manage blog content, including creating, editing, and deleting blog posts.
 
@@ -18,13 +18,13 @@ The project includes both the blog's public-facing site and an **Admin Panel** t
 - **Authentication**: Auth0
 - **Image Storage**: Cloudinary
 - **Blog Editor**: WYGIWYS (What You Get Is What You See editor)
-- **Styling**: Tailwind CSS
+- **Styling**: CSS3
 
 ## Features
 
 ### Public Blog Website
 - View and read published blog posts
-- Responsive design using Tailwind CSS
+- Responsive design using CSS3
 - Pagination for blog posts
 - Categorizing blog posts to help users find contents they are interested in
 - Subscribe for newsletters and notifications for new blog posts
@@ -57,7 +57,7 @@ npm install
 yarn install
 ```
 
-This will install all the necessary packages from package.json including Next.js, Tailwind CSS, and other dependencies.
+This will install all the necessary packages from package.json including Next.js, CSS3, and other dependencies.
 
 ### 3. Set Up Environment Variables
 Create a .env.local file in the root of the project and add the following environment variables. These variables are used to configure authentication, image storage, and the database connection.
@@ -93,41 +93,81 @@ The application will be running at http://localhost:3000. Visit this URL in your
 To access the Admin Panel, you'll need to log in through Auth0. Visit the following route:
 
 ```bash
-/api/auth/login
+/login
 ```
 This will redirect you to the Auth0 login page, where you can log in using your credentials. Once authenticated, you'll be able to access the Admin Panel to create, edit, or delete blog posts.
 
 ## Project Structure
 
 ```bash
-/blog-website
+/pentago-blog
 ├── /pages
 │   ├── /api
-│   │   ├── auth.js                # API routes for authentication (Auth0)
-│   │   ├── posts.js               # API routes for CRUD operations on blog posts
+│   │   ├── /auth
+│   │   │   └── [...auth0].js               # Auth0 authentication routes 
+│   │   ├── /blog
+│   │   │   └── [type]
+│   │   │       ├── index.js                # API route for creating blog posts 
+│   │   │       ├── delete.js               # API route for deleting blog posts 
+│   │   │       ├── pin.js                  # API route for pinning blog posts 
+│   │   │       └── [blogId].js             # API route for editing specific blog posts
+│   │   └── subscription.js                 # Newsletter subscription endpoint
 │   ├── /admin
-│   │   ├── index.js               # Admin dashboard
-│   │   ├── create.js              # Create new blog post
-│   │   ├── edit.js                # Edit an existing blog post
-│   ├── /posts
-│   │   ├── [slug].js              # Individual blog post page
-│   ├── index.js                   # Homepage showing all blog posts
+│   │   ├── index.js                        # Admin dashboard
+│   │   ├── /blog
+│   │   │   ├── index.js                    # Blog post list
+│   │   │   ├── preview.js                  # Blog preview
+│   │   │   └── /upload
+│   │   │       ├── index.js                # Deploy New Blog
+│   │   │       └── [blogId].js             # Edit existing blog
+│   │   └── /draft
+│   │       ├── index.js                    # Draft post list
+│   │       ├── preview.js                  # Draft preview
+│   │       └── /upload
+│   │           ├── index.js                # Create new draft
+│   │           └── [draftId].js            # Edit existing draft
+│   ├── /[contentType]
+│   │   ├── index.js                        # Filtered posts according to Content types
+│   │   └── /page
+│   │       └── [pageId].js                 # Paginated content type
+│   ├── /category
+│   │   └── [category]                      
+│   │       ├── index.js                    # Filtered posts according to categories
+│   │       └── /page
+│   │           └── [pageId].js             # Paginated category
+│   ├── /content
+│   │   └── [blogUrl].js                    # Individual blog post
+│   ├── aboutus.js                          # About page
+│   ├── login.js                            # Login page
+│   ├── _app.js                             # App configuration
+│   └── index.js                            # Homepage
 ├── /components
-│   ├── Header.js                  # Header with navigation
-│   ├── PostCard.js                # Blog post preview component
-│   ├── Editor.js                  # WYGIWYS editor component
+│   ├── texteditor.js                       # Text Editor
+│   ├── toolbar.js                          # Admin toolbar
+│   ├── blogsidebar.js                      # Blog sidebar
+│   ├── header.js                           # Site header
+│   ├── footer.js                           # Site footer
+│   ├── subscription.js                     # Newsletter subscription
+│   ├── querypagination.js                  # Admin query pagination
+│   ├── blogpagination.js                   # Blog pagination
+│   └── db.js                               # MongoDB Connection
+├── /layout
+│   ├── BlogLayout.js                       # Blog post layout
+│   └── home.js                             # Homepage layout
 ├── /styles
-│   ├── globals.css                # Global styles (Tailwind CSS)
-│   ├── tailwind.config.js         # Tailwind CSS configuration
-├── /public
-│   ├── /images                    # Folder for public images
-├── /lib
-│   ├── auth0.js                   # Utility functions for Auth0 authentication
-│   ├── cloudinary.js              # Cloudinary image upload functions
-│   ├── mongodb.js                 # MongoDB utility functions for database interaction
-├── .env.local                     # Environment variables
-├── package.json                   # Project dependencies
-└── README.md                      # Project documentation
+│   ├── adminhome.css                       # Admin panel styles
+│   ├── blog-admin.css                      # Blog edit page styles
+│   ├── details.css                         # Blog detail styles
+│   ├── globals.css                         # Global styles
+│   ├── home.css                            # Homepage styles
+│   ├── aboutus.css                         # About page styles
+│   ├── login.css                           # Login styles
+│   ├── pagination.css                      # Pagination component styles
+│   ├── sidebar.css                         # Sidebar styles
+│   ├── upload.css                          # Upload form styles
+│   └── texteditor.css                      # WYGIWYS editor styles
+└── /context
+    └── preview.js                          # Blog preview context
 ```
 
 ## How It Works
