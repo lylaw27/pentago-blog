@@ -2,11 +2,11 @@
 
 ## Overview
 
-This project is a full-stack blog website built with **Next.js** (React Framework) for server-side rendering, **CSS3** for responsive and utility-first design, **Cloudinary** for image storage, **WYGIWYS** (What You Get Is What You See) for blog content creation, and **Auth0** for user authentication.
+This project is a full-stack blog website built with **Next.js** (React Framework) for server-side rendering, static site generation for SEO optimization, **CSS3** for responsive and utility-first design, **Cloudinary** for image storage, **MailChimp** for email marketing services,**WYGIWYS** (What You Get Is What You See) for blog content creation, and **Auth0** for user authentication.
 
 The project includes both the blog's public-facing site and an **Admin Panel** that allows authenticated users to manage blog content, including creating, editing, and deleting blog posts.
 
-## Tech Stack
+## Tech Stack & Services Used
 
 <p align="center" width="100%">
     <img width="60%" src="/images/blog-diagram.png">
@@ -17,6 +17,7 @@ The project includes both the blog's public-facing site and an **Admin Panel** t
 - **Database**: MongoDB (for storing blog posts)
 - **Authentication**: Auth0
 - **Image Storage**: Cloudinary
+- **Email Marketing**: MailChimp
 - **Blog Editor**: WYGIWYS (What You Get Is What You See editor)
 - **Styling**: CSS3
 
