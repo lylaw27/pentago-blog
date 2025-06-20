@@ -1,4 +1,4 @@
-# Blog Website with Admin Panel - Full Stack Project
+# Blog Website with Custom CMS - Full Stack Project
 
 ## Overview
 
